@@ -1,21 +1,39 @@
-p {
-	margin: auto;
-	margin-top: 1em;
+h1
+	{
 	
 	position: center;
-	
-	/*background-color: white;*/
 	background-color: #ecc845;
 	outline-color: #B10000;
-    border-radius: 50px;
-	border: 10px #B10000;
 	padding: 20px;
-	width: 60%;
+	width: 80%;
     top: .5em;
 	font-size: 1.5em;
 	font-family: futura;
 	text-align: center;
 }
+
+p {
+	margin: auto;
+	margin-top: 4em;
+	
+	position: center;
+	padding: 20px;
+	width: 60%;
+    top: 7em;
+    right: 1em;
+	font-size: 1.5em;
+	font-family: futura;
+	text-align: center;
+}
+
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+
+
 
 #fixedbutton {
     position: fixed;
@@ -33,4 +51,8 @@ p {
     font-size: 2em;
     color: white;
    
+}
+
+p:hover {
+    background-color: black;
 }
