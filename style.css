@@ -1,16 +1,12 @@
-h1
-	{
-	
+h1 {
+	margin: auto;
 	position: center;
-	background-color: #ecc845;
-	outline-color: #B10000;
-	padding: 20px;
-	width: 80%;
-	/*border-radius: 0 50px 50px 0;*/
-    top: .5em;
-	font-size: 1.5em;
+	padding: 40px;
+	width: 60%;
+	font-size: 3em;
 	font-family: futura;
 	text-align: center;
+	background-color: #EDE2FF;	
 }
 
 p {
@@ -18,22 +14,42 @@ p {
 	margin-top: 4em;
 	position: center;
 	padding: 20px;
-	width: 40%;
-    top: 8em;
-    border-radius: 0 50px 50px 0;
-    right: 5em;
+	width: 50%;
+    border-radius: 0 0 0 0;
 	font-size: 1.5em;
 	font-family: futura;
-	text-align: relative;
+	text-align: center;
 	background-color: #D6D3FF;
 	transition: .5s;
+	
+	
 }
 
-p:hover {
+.centered, .clickable {
+	margin: auto;
+	margin-top: 1em;
+	position: relative;
+	padding: 20px;
+	width: 50%;
+	font-size: 1.5em;
+	font-family: futura;
+}
+
+.centeredHeader {
+	margin: auto;
+	margin-top: 1em;
+	position: relative;
+	padding: 20px;
 	width: 60%;
+	font-size: 1.5em;
+	font-family: futura;
+}
+
+.clickable:hover {
+	width: 50%;
     transition: .5s;
     background-color: #A9A5DC;
-    border-radius: 0 50px 50px 0;
+    border-radius: 50px 50px 50px 50px;
 }
 
 
