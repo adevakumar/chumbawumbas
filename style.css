@@ -1,21 +1,47 @@
-p {
-	margin: auto;
-	margin-top: 1em;
+h1
+	{
 	
 	position: center;
-	
-	/*background-color: white;*/
 	background-color: #ecc845;
 	outline-color: #B10000;
-    border-radius: 50px;
-	border: 10px #B10000;
 	padding: 20px;
-	width: 60%;
+	width: 80%;
+	/*border-radius: 0 50px 50px 0;*/
     top: .5em;
 	font-size: 1.5em;
 	font-family: futura;
 	text-align: center;
 }
+
+p {
+	margin: auto;
+	margin-top: 4em;
+	position: center;
+	padding: 20px;
+	width: 40%;
+    top: 8em;
+    border-radius: 0 50px 50px 0;
+    right: 5em;
+	font-size: 1.5em;
+	font-family: futura;
+	text-align: relative;
+	background-color: #D6D3FF;
+	transition: .5s;
+}
+
+p:hover {
+	width: 60%;
+    transition: .5s;
+    background-color: #A9A5DC;
+    border-radius: 0 50px 50px 0;
+}
+
+
+a:hover{
+	text-decoration: none;
+	color: white;
+}
+
 
 #fixedbutton {
     position: fixed;
@@ -34,3 +60,4 @@ p {
     color: white;
    
 }
+
