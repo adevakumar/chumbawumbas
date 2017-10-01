@@ -1,9 +1,24 @@
+html {
+	font-family: Verdana;
+}
+
 .jumbotron {
-	background-color: #EDE2FF
+	background-color: #EDE2FF;
+	margin-bottom: 0;
+	border-bottom: 12px solid black;
 }
 
 .info {
-	background-color: #D6D3FF
+	background-color: #D6D3FF;
+}
+
+.previous, .favorite {
+	height: 500px;
+}
+
+.display {
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 hr {
