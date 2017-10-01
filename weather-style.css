@@ -1,16 +1,10 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
-article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
-ol,ul{list-style:none;margin:0;padding:0;}
+article, aside, details, figcaption, figure,footer, header, hgroup, menu, section {display: block;}
+ol, ul{list-style:none;margin:0;padding:0;}
 blockquote,q{quotes:none;}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
 table{border-collapse:collapse;border-spacing:0;}
 /* start editing from here */
-a{
-    text-decoration:none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px; 
-}
 .txt-rt{text-align:right;}/* text align right */
 .txt-lt{text-align:left;}/* text align left */
 .txt-center{text-align:center;}/* text align center */
@@ -22,16 +16,34 @@ a{
 .vertical-base{	vertical-align:baseline;}/* vertical align baseline */
 .vertical-top{	vertical-align:top;}/* vertical align top */
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
-nav.vertical ul li{	display:block;}/* vertical menu */
-nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
+/*nav.vertical ul li{	display:block;}/* vertical menu */
+/*nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 /*--login start here--*/
 
+.nav>li{
+  float: none;
+  display: inline-block;
+  color: black;
+
+}
+.nav.inline-navbar {
+   /* width: 100%; */
+    text-align: center;
+    padding: 15px;
+    padding-bottom: 15px;
+}
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #F7D9A3;
+    /*background: #D6D3FF;*/
     font-size: 100%;
+}
+.header-bottom{
+    border-color: #D6D3FF;
+}
+.container{
+    background: #EDE2FF;
 }
 a {
   text-decoration: none;
@@ -58,7 +70,7 @@ h1 {
 
 }
 .header-top{
-	 border-bottom: 3px solid #D4D4D4;
+	 border-bottom: 3px solid #D6D3FF;
     padding: 1.5em;
 }
 .header-top h2{
@@ -67,7 +79,7 @@ h1 {
 }
 .header-top ul{
 	float: right;
-	    border: 1px solid #C1C1C1;
+	    border: 1px solid #D6D3FF;
     border-radius: 5px;
 }
 .header-top li{
@@ -79,15 +91,13 @@ h1 {
 	padding: 4px 6px;
 }
 .header-top li p.cen{
-	    background: #E4E4E4;
+	    background: #D6D3FF;
 }
 .whe {
     vertical-align: bottom;
     margin-right: 0.5em;
 }
 /*----*/
-.header-bottom{
-}
 .header-bottom1 {
     float: left;
     width: 25%;
@@ -97,7 +107,7 @@ h1 {
 	padding: 2em;
 }
 .header-bottom2 {
-  background: #f1f1f1;  
+  background: #D6D3FF;  
 }
 .header-bottom1:nth-child(3) {
     border-right: none;
