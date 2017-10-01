@@ -30,7 +30,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Thumbnail Gallery - Start Bootstrap Template</title>
+    <title>Closet</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -40,9 +40,9 @@
 
     <!-- Page Content -->
     <ul class="nav navbar-nav inline-navbar">
-      <button class="btn btn-info" type="button" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">My Closet</button>
+      <button class="btn btn-outline-info" type="button" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">My Closet</button>
       </button>
-      <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">Add New Outfit</button>
+      <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">Add New Outfit</button>
     </ul>
     <div class="row">
       <div class="col">
@@ -93,36 +93,60 @@
       </div>
       <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample2">
+
+
+      <div class="card">
+
           <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">Text</label>
+            <label for="example-text-input" class="col-2 col-form-label">Item Name</label>
             <div class="col-10">
-              <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+              <input class="form-control" type="text" value="ex: Professional Shirt 1" id="example-text-input">
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="example-search-input" class="col-2 col-form-label">Search</label>
+            <label for="example-text-input" class="col-2 col-form-label">Clothing Style</label>
             <div class="col-10">
-              <input class="form-control" type="search" value="How do I shoot web" id="example-search-input">
+              <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Clothing Type
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Shirt</a></li>
+                    <li><a href="#">Pant</a></li>
+                    <li><a href="#">Sweater</a></li>
+                    <li><a href="#">Add New Type</a></li>
+                  </ul>
+                </div>
             </div>
           </div>
-        </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Weather Attributes</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value="ex: Rainy, Humid, 80 Degrees" id="example-text-input">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Other Attributes</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value="ex: Rainy, Humid, 80 Degrees" id="example-text-input">
+              <small id="emailHelp" class="form-text text-muted">Add whatever defining attributes you want!</small>
+            </div>
+          </div>
+
+
+
+
+          <div class="form-group row">
+            <label for="example-search-input" class="col-2 col-form-label">Upload</label>
+            <div class="col-10">
+              <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+            </div>
+
       </div>
     </div>
-
-
-
-
-
-
-    <div class="hide" id="hideExample">
-      <h1>testing</h1>
-    </div>
-
-
-
-
-
-    <!-- /.container -->
+  </div>
 
 
 

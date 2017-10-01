@@ -91,7 +91,12 @@ a:hover{
     padding-bottom: 15px;
   }
 
-  .form.group row {
-    padding: 10px;
-    text-align: center;
+  .card {
+    padding: 50px;
+    text-align: left;
+    line-height: normal;
   }
+  .col-10 {
+    text-indent: 2px;
+
+ }
