@@ -1,0 +1,36 @@
+p {
+	margin: auto;
+	margin-top: 1em;
+	
+	position: center;
+	
+	/*background-color: white;*/
+	background-color: #ecc845;
+	outline-color: #B10000;
+    border-radius: 50px;
+	border: 10px #B10000;
+	padding: 20px;
+	width: 60%;
+    top: .5em;
+	font-size: 1.5em;
+	font-family: futura;
+	text-align: center;
+}
+
+#fixedbutton {
+    position: fixed;
+    text-align: center;
+    bottom: 20px;
+    left: 10px; 
+    padding: 14px 16px;
+    width: 3em;
+    margin: auto;
+   	background-color: black;
+   	border-color: #ac2c23;
+   	border-radius: 50px;
+   	border-width: 10px;	
+    font-family: Verdana;
+    font-size: 2em;
+    color: white;
+   
+}
