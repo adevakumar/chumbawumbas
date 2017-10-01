@@ -6,7 +6,7 @@ h1
 	outline-color: #B10000;
 	padding: 20px;
 	width: 80%;
-	border-radius: 0 50px 50px 0;
+	/*border-radius: 0 50px 50px 0;*/
     top: .5em;
 	font-size: 1.5em;
 	font-family: futura;
@@ -24,12 +24,20 @@ p {
     right: 5em;
 	font-size: 1.5em;
 	font-family: futura;
-	text-align: fixed;
-	background-color: #ac2c23;
+	text-align: relative;
+	background-color: #D6D3FF;
+	transition: .5s;
+}
+
+p:hover {
+	width: 60%;
+    transition: .5s;
+    background-color: #A9A5DC;
+    border-radius: 0 50px 50px 0;
 }
 
 
-a {
+a:hover{
 	text-decoration: none;
 	color: white;
 }
@@ -53,9 +61,3 @@ a {
    
 }
 
-p:hover {
-	width: 60%;
-	
-    background-color: #ac2c23;
-    border-radius: 0 50px 50px 0;
-}
