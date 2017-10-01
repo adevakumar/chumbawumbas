@@ -6,6 +6,7 @@ h1
 	outline-color: #B10000;
 	padding: 20px;
 	width: 80%;
+	border-radius: 0 50px 50px 0;
     top: .5em;
 	font-size: 1.5em;
 	font-family: futura;
@@ -15,15 +16,16 @@ h1
 p {
 	margin: auto;
 	margin-top: 4em;
-	
 	position: center;
 	padding: 20px;
-	width: 60%;
-    top: 7em;
-    right: 1em;
+	width: 40%;
+    top: 8em;
+    border-radius: 0 50px 50px 0;
+    right: 5em;
 	font-size: 1.5em;
 	font-family: futura;
-	text-align: center;
+	text-align: fixed;
+	background-color: #ac2c23;
 }
 
 
@@ -31,8 +33,6 @@ a {
 	text-decoration: none;
 	color: white;
 }
-
-
 
 
 #fixedbutton {
@@ -54,5 +54,8 @@ a {
 }
 
 p:hover {
-    background-color: black;
+	width: 60%;
+	
+    background-color: #ac2c23;
+    border-radius: 0 50px 50px 0;
 }
