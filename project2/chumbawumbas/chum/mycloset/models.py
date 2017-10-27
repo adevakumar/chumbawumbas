@@ -28,12 +28,16 @@ class Outfit(models.Model):
     OutfitName = models.CharField(max_length=200, help_text="Enter outfit name")
     clothing = models.ManyToManyField(Clothing, help_text="Select all clothing for your outfit")
     date = models.DateField('Date', null=True, blank=True)
-
+    userComment = models.ForeignKey('Comments', on_delete=models.SET_NULL, null=True)
+	
     def __str__(self):
         """
         String for representing the Clothing object.
         """
         return self.OutfitName
+        
+class Comments(models.Model):
+	singleComment = models.TextField(max_length=2000)
 
 class User(models.Model):
     """
