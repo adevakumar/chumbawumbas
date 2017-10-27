@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Weather, User, Clothing, Outfit, Comment
+from .models import Weather, User, Clothing, Outfit, Comments
 
 # Register the Admin classes for Weather using the decorator
 
@@ -30,6 +30,6 @@ class OutfitAdmin(admin.ModelAdmin):
 
 # Register the Admin classes for Comment using the decorator
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
+@admin.register(Comments)
+class CommentsAdmin(admin.ModelAdmin):
     pass
