@@ -25,16 +25,16 @@ class Outfit(models.Model):
     #outfit_type = models.CharField(max_length=200)
     #summary = models.CharField(max_length=100, help_text="Enter Clothing Type")
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular clothing across whole closet")
-    OutfitName = models.CharField(max_length=200, help_text="Enter outfit name")
+    outfit_name = models.CharField(max_length=200, help_text="Enter outfit name")
     clothing = models.ManyToManyField(Clothing, help_text="Select all clothing for your outfit")
     date = models.DateField('Date', null=True, blank=True)
-    userComment = models.ForeignKey('Comments', on_delete=models.SET_NULL, null=True)
+    user_comment = models.ForeignKey('Comments', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         """
         String for representing the Clothing object.
         """
-        return self.OutfitName
+        return self.outfit_name
 
 class Comments(models.Model):
 	singleComment = models.TextField(max_length=2000)
@@ -50,7 +50,7 @@ class User(models.Model):
     """
     user_name = models.CharField(max_length=200, help_text="Enter your name", default = '')
     phone = models.CharField('phone number',max_length=10)
-    contactInfo = models.TextField('Contact Info', max_length=1000, help_text="Enter your email address", default = '')
+    contact_info = models.TextField('Contact Info', max_length=1000, help_text="Enter your email address", default = '')
     gender = models.CharField('Gender', max_length=1, help_text="Please Input F (Female), M (Male), or O (Other)", default = '')
     closet = models.ManyToManyField('Clothing', help_text="Select clothing for closet")
     #friends = models.ManyToManyField(self, help_text="Add your friends to the list")
