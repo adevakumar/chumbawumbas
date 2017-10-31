@@ -10,6 +10,7 @@ class Clothing(models.Model):
     """
     clothing_name = models.CharField(max_length=200, help_text="Enter clothing name (e.g. Dark Wash Jeans)", default="")
     clothing_type = models.ForeignKey('ClothingType', on_delete=models.SET_NULL, null=True)
+    clothing_picture = models.CharField(max_length=200, help_text="Enter the url for your desired image", null=True)
     weather = models.ForeignKey('Weather', on_delete=models.SET_NULL, null=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular clothing across whole closet")
 
@@ -30,7 +31,7 @@ class ClothingType(models.Model):
         """
         String for representing the Clothing object.
         """
-        return self.name
+        return self.type_name
 
 
 class Outfit(models.Model):
@@ -66,6 +67,12 @@ class Comment(models.Model):
 class Weather(models.Model):
     weather_type = models.CharField(max_length=20)
     date = models.DateField('Date', null=True, blank=True)
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return '%s' % (self.weather_type)
     
 
 class User(models.Model):
@@ -73,6 +80,7 @@ class User(models.Model):
     Model representing an author.
     """
     user_name = models.CharField(max_length=200, help_text="Enter your name", default = '')
+    profile_picture = models.CharField(max_length=200, help_text="Enter the url for your desired image", null=True)
     phone = models.CharField('Phone Number',max_length=10)
     email = models.TextField('Email', max_length=1000, help_text="Enter your email address", default = '')
     gender = models.CharField('Gender', max_length=1, help_text="Please Input F (Female), M (Male), or O (Other)", default = '')
