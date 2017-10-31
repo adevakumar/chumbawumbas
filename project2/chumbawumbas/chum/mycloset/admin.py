@@ -2,34 +2,56 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Weather, User, Clothing, Outfit, Comments
+from .models import Weather, User, Clothing, ClothingType, Outfit, Comment
 
+
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+    
 # Register the Admin classes for Weather using the decorator
-
 @admin.register(Weather)
 class WeatherAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('weather_type', 'date')
+
 
 # Register the Admin classes for User using the decorator
-
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user_name', 'phone', 'email', 'gender')
+    
+    fieldsets = (
+        (None, {
+            'fields': ('user_name', 'gender')
+        }),
+        ('Contact Information', {
+            'fields': ('phone', 'email')
+        }),
+    )
+
 
 # Register the Admin classes for Clothing using the decorator
-
 @admin.register(Clothing)
 class ClothingAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('clothing_name', 'clothing_type', 'weather', 'id')
+    list_filter = ('clothing_type', 'weather')
+
+
+# Register the Admin classes for ClothingType using the decorator
+@admin.register(ClothingType)
+class ClothingTypeAdmin(admin.ModelAdmin):
+	pass
+
 
 # Register the Admin classes for Outfit using the decorator
-
 @admin.register(Outfit)
 class OutfitAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('outfit_name', 'display_clothing', 'date', 'id')
+    inlines = [CommentInline]
+
 
 # Register the Admin classes for Comment using the decorator
-
-@admin.register(Comments)
-class CommentsAdmin(admin.ModelAdmin):
-    pass
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'outfit', 'text', 'date')
+    list_filter = ('outfit', 'user', 'date')
