@@ -7,6 +7,8 @@ def closet(request):
 	#items in closet
 	num_clothing = Clothing.objects.all().count()
 	num_clothingtype = ClothingType.objects.all().count()
+	clothing_type = Clothing.objects.clothing_type
+	clothing_picture = Clothing.objects.clothing_picture
 	num_outfits = Outfit.objects.all().count()
 	num_comments = Comment.objects.all().count()
 	num_weather = Weather.objects.all().count()
@@ -33,6 +35,7 @@ def profile(request):
 	user_phone = User.objects.phone
 	user_gender = User.objects.gender
 	user_closet = User.objects.closet
+
 	
 	return render(
 		request,
