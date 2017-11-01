@@ -37,7 +37,7 @@ def closet(request):
 def friends(request):
 	num_user = User.objects.all().count()
 	user_name = User.objects.get(user_name)
-	
+
 	return render(
 		request,
 		'friends.html',
@@ -51,7 +51,7 @@ def profile(request):
 	user_gender = User.objects.get(gender)
 	user_closet = User.objects.get(closet)
 
-	
+
 	return render(
 		request,
 		'profile.html',
@@ -74,7 +74,4 @@ def about(request):
 		request,
 		'fifth.html',
 		context = {},
-	) 
-
-	
-
+	)
