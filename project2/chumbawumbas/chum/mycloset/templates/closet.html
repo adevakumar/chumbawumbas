@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <ul class="nav nav-tabs">
+    <li role="presentation"><a href="index.html">Home</a></li>
+    <li role="presentation"><a href="closet.html">My Closet</a></li>
+    <li role="presentation"><a href="profile.html">Profile</a></li>
+    <li role="presentation"><a href="friends.html">My Friends</a></li>
+    <li role="presentation"><a href="weather.html">Weather</a></li>
+  </ul>
+<div class="container">
+  <h1>Closet Page</h1>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Closet</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- Page Content -->
+    <ul class="nav navbar-nav inline-navbar">
+      <button class="btn btn-outline-info" type="button" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">My Closet</button>
+      </button>
+      <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">Add New Outfit</button>
+    </ul>
+    <div class="row">
+      <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+            <div class="col-lg-3 col-md-4 col-xs-6">
+               <a href="#" class="d-block mb-4 h-100">
+                 <img class="img-fluid img-thumbnail" src="clothing_pics/shirt.jpg" alt="">
+               </a>
+             </div>
+             <div class="col-lg-3 col-md-4 col-xs-6">
+                <a href="#" class="d-block mb-4 h-100">
+                  <img class="img-fluid img-thumbnail" src="clothing_pics/shorts.jpg" alt="">
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4 col-xs-6">
+                 <a href="#" class="d-block mb-4 h-100">
+                   <img class="img-fluid img-thumbnail" src="clothing_pics/sweatshirt.jpg" alt="">
+                 </a>
+               </div>
+               <div class="col-lg-3 col-md-4 col-xs-6">
+                  <a href="#" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail" src="clothing_pics/tank.jpg" alt="">
+                  </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-xs-6">
+                   <a href="#" class="d-block mb-4 h-100">
+                     <img class="img-fluid img-thumbnail" src="clothing_pics/long_sleeve.jpg" alt="">
+                   </a>
+                 </div>
+                 <div class="col-lg-3 col-md-4 col-xs-6">
+                    <a href="#" class="d-block mb-4 h-100">
+                      <img class="img-fluid img-thumbnail" src="clothing_pics/pullover.jpg" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-xs-6">
+                   <a href="#" class="d-block mb-4 h-100">
+                     <img class="img-fluid img-thumbnail" src="clothing_pics/sweater.jpg" alt="">
+                   </a>
+               </div>
+               <div class="col-lg-3 col-md-4 col-xs-6">
+                  <a href="#" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail" src="clothing_pics/pant.jpg" alt="">
+                  </a>
+              </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample2">
+
+
+      <div class="card">
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Item Name</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value="ex: Professional Shirt 1" id="example-text-input">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Clothing Style</label>
+            <div class="col-10">
+              <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Clothing Type
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Shirt</a></li>
+                    <li><a href="#">Pant</a></li>
+                    <li><a href="#">Sweater</a></li>
+                    <li><a href="#">Add New Type</a></li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Weather Attributes</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value="ex: Rainy, Humid, 80 Degrees" id="example-text-input">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Other Attributes</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value="ex: Rainy, Humid, 80 Degrees" id="example-text-input">
+              <small id="emailHelp" class="form-text text-muted">Add whatever defining attributes you want!</small>
+            </div>
+          </div>
+
+
+
+
+          <div class="form-group row">
+            <label for="example-search-input" class="col-2 col-form-label">Upload</label>
+            <div class="col-10">
+              <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+            </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+
+
+</html>
+
+
+
+
+
+
+</body>
+</html>
