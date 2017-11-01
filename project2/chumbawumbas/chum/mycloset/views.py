@@ -7,8 +7,8 @@ def closet(request):
 	#items in closet
 	num_clothing = Clothing.objects.all().count()
 	num_clothingtype = ClothingType.objects.all().count()
-	clothing_type = Clothing.objects.clothing_type
-	clothing_picture = Clothing.objects.clothing_picture
+	clothing_type = Clothing.objects.get(clothing_type)
+	clothing_picture = Clothing.objects.get(clothing_picture)
 	num_outfits = Outfit.objects.all().count()
 	num_comments = Comment.objects.all().count()
 	num_weather = Weather.objects.all().count()
@@ -21,7 +21,7 @@ def closet(request):
 	)
 def friends(request):
 	num_user = User.objects.all().count()
-	user_name = User.objects.user_name
+	user_name = User.objects.get(user_name)
 	
 	return render(
 		request,
@@ -30,11 +30,11 @@ def friends(request):
 	)
 def profile(request):
 	num_friends = User.objects.all().count()
-	user_name = User.objects.user_name
-	user_email = User.objects.email
-	user_phone = User.objects.phone
-	user_gender = User.objects.gender
-	user_closet = User.objects.closet
+	user_name = User.objects.get(user_name)
+	user_email = User.objects.get(email)
+	user_phone = User.objects.get(phone)
+	user_gender = User.objects.get(gender)
+	user_closet = User.objects.get(closet)
 
 	
 	return render(
