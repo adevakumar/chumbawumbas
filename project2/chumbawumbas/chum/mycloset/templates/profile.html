@@ -13,11 +13,12 @@
 <body>
 <!-- NAV BAR -->
 <ul class="nav nav-tabs">
-  <li role="presentation"><a href="index.html">Home</a></li>
-  <li role="presentation"><a href="closet.html">My Closet</a></li>
-  <li role="presentation"><a href="profile.html">Profile</a></li>
-  <li role="presentation"><a href="friends.html">My Friends</a></li>
-  <li role="presentation"><a href="weather.html">Weather</a></li>
+  <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
+  <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
+  <li role="presentation"><a href="{% url 'profile' %}">Profile</a></li>
+  <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
+  <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
+  <li role="presentation"><a href="{% url 'about' %}">About</a></li>
 </ul>
 
 <!-- Page Content -->

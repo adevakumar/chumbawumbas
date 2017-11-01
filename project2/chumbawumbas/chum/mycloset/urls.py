@@ -9,4 +9,5 @@ urlpatterns = [
 	url(r'^profile.html$', views.profile, name='profile'),
 	url(r'^friends.html$', views.friends, name='friends'),
 	url(r'^weather.html$', views.weather, name='weather'),
+	url(r'^fifth.html$', views.about, name='about'),
 ]

@@ -56,7 +56,8 @@ def profile(request):
 		request,
 		'profile.html',
 		context = {'user_name':user_name,'user_email':user_email,'user_phone':user_phone,'user_gender':user_gender,'user_closet':user_closet},
-	)
+)
+
 
 def weather(request):
 
@@ -65,6 +66,15 @@ def weather(request):
 		'weather.html',
 		context = {},
 	)
+
+
+def about(request):
+
+	return render(
+		request,
+		'fifth.html',
+		context = {},
+	) 
 
 	
 
