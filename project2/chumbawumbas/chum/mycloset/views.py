@@ -3,6 +3,21 @@ from django.shortcuts import render
 # Create your views here.
 from .models import Clothing, ClothingType, Outfit, Comment, Weather, User
 
+def index(request):
+	"""
+	View function for the home page of our site.
+	"""
+	# Put desired data fields here to allow for referencing in html for home page (index)
+	# Example: num_books=Book.objects.all().count()
+	# DONT FORGET TO ALSO POPULATE THE CONTEXT ARRAY IN THE THE RETURN STATEMENT BELOW
+
+
+	return render(
+		request,
+		'index.html',
+		context={},
+	)
+
 def closet(request):
 	#items in closet
 	num_clothing = Clothing.objects.all().count()
@@ -41,6 +56,14 @@ def profile(request):
 		request,
 		'profile.html',
 		context = {'user_name':user_name,'user_email':user_email,'user_phone':user_phone,'user_gender':user_gender,'user_closet':user_closet},
+	)
+
+def weather(request):
+
+	return render(
+		request,
+		'weather.html',
+		context = {},
 	)
 
 	
