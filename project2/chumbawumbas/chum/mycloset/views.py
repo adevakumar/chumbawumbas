@@ -10,7 +10,7 @@ def index(request):
 	# Put desired data fields here to allow for referencing in html for home page (index)
 	# Example: num_books=Book.objects.all().count()
 	# DONT FORGET TO ALSO POPULATE THE CONTEXT ARRAY IN THE THE RETURN STATEMENT BELOW
-	
+
 
 	return render(
 		request,
@@ -36,16 +36,13 @@ def closet(request):
 	)
 
 def friends(request):
-	user1 = User.objects.get(user_name = 'Tim Richards')
-	user2 = User.objects.get(user_name = 'Bob')
-	user3 = User.objects.get(user_name = 'Michelle')
 	num_user = User.objects.all().count()
+	user_name = User.objects.get(user_name)
 
-	
 	return render(
 		request,
 		'friends.html',
-		context={'num_user':num_user,'user_one':user1,'user_two':user2,'user_three':user3},
+		context={'num_user':num_user,'user_name':user_name},
 	)
 	
 def profile(request):
@@ -58,15 +55,17 @@ def profile(request):
 		request,
 		'profile.html',
 		context = {'user':user, 'previous_outfits':previous_outfits, 'favorite_outfits':favorite_outfits},
-)
+        )
 
 
 def weather(request):
+        date = Weather.objects.get(date)
+        wtype = Weather.objects.get(wtype='Cloudy')
 
 	return render(
 		request,
 		'weather.html',
-		context = {},
+		context = {'date':date,'wtype':wtype},
 	)
 
 
