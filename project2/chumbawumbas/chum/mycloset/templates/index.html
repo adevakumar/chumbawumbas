@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <title>Choose My Clothing!</title>
-  <link href="style.css" type="text/css" rel="stylesheet">
+  {% load static %}
+  <link rel="stylesheet" href = "{% static  'css/index-style.css' %}">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,28 +19,28 @@
   
   
   <p class = "clickable">
-  <a href = "closet.html">
+  <a href = "{% url 'closet' %}">
   Click Me to go to your Virtual Closet!
   </a>
   </p>
   <p class = "clickable">
-  <a href = "friends.html">
+  <a href = "{% url 'friends' %}">
   Click Me to go to your Friends!
   </a>
   </p>
   <p class = "clickable">
-  <a href = "profile.html">
+  <a href = "{% url 'profile' %}">
   Click Me to go to your Profile!
   </a>
   </p>
   
   <p class = "clickable">
-  <a href = "fifth.html">
+  <a href = "{% url 'about' %}">
   Click Me to learn more about <i>Choose My Clothing!</i>
   </p>
   
   <p class = "clickable">
-  <a href = "weather.html">
+  <a href = "{% url 'weather' %}">
   Click Me to learn more about Today's Weather!
   </p>
   
