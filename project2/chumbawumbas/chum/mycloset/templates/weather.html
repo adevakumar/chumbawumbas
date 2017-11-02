@@ -5,17 +5,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/weather-style.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link href="weather-style.css" rel="stylesheet" type="text/css" media="all"/>
+  
 </head>
 <body>
 <div class="nav">
-  <li role="presentation"><a href="index.html">Home</a></li>
-  <li role="presentation"><a href="closet.html">My Closet</a></li>
-  <li role="presentation"><a href="profile.html">Profile</a></li>
-  <li role="presentation"><a href="friends.html">My Friends</a></li>
-  <li role="presentation"><a href="weather.html">Weather</a></li>
+  <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
+  <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
+  <li role="presentation"><a href="{% url 'profile' %}">Profile</a></li>
+  <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
+  <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
+  <li role="presentation"><a href="{% url 'about' %}">About</a></li>
 </div>
 <div class="container">
   <h1>What's the Weather Like?</h1>
@@ -23,7 +26,7 @@
 
 	<div class="header">
 		<div class="header-top">
-			<h2><img class="whe" src="images/sun.png" alt="" />Today is October 1</h2>
+			<h2><img class="whe" src="images/sun.png" alt="" />Today is {{ weather.date }}</h2>
 			<ul>
 				<li><p>°F</p></li>
 				<li><p class="cen">°C</p></li>
@@ -33,7 +36,7 @@
 		<div class="header-bottom">
 			<div class="header-bottom1">
 				<div class="header-head">
-				<h4>Cloudy</h4>
+				<h4>{{ weather.wtype }}</h4>
 				<img src="images/cloudy.png" alt="" />
 				<h6>20°</h6>
 				<div class="bottom-head">
