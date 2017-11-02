@@ -66,7 +66,7 @@ def weather(request):
         return render(
 		request,
 		'weather.html',
-		context = {'date':date,'wtype':wtype},
+		context = {'date':date,'weather_type':weather_type},
 	)
 
 
