@@ -41,18 +41,28 @@
   <body>
 
     <!-- Page Content -->
+    {% block navbar %}
     <ul class="nav navbar-nav inline-navbar">
       <button class="btn btn-outline-info" type="button" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">My Closet</button>
       </button>
       <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample1">Add New Outfit</button>
     </ul>
+    {% endblock %}
+    {% block content %}
+
     <div class="row">
       <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample1">
             <div class="col-lg-3 col-md-4 col-xs-6">
                <a href="#" class="d-block mb-4 h-100">
-                 <img class="img-fluid img-thumbnail" src="clothing_pics/shirt.jpg" alt="">
+                 <img class="img-fluid img-thumbnail" src= 'https://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=211831168' alt="">
+                 <div class="caption">
+                    <p>{{ clothing_types }}</p>
+                  </div>
+
                </a>
+
+
              </div>
              <div class="col-lg-3 col-md-4 col-xs-6">
                 <a href="#" class="d-block mb-4 h-100">
@@ -93,6 +103,8 @@
           </div>
         </div>
       </div>
+    {% endblock %}
+
       <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample2">
 
@@ -143,7 +155,9 @@
             </div>
       </div>
     </div>
+
   </div>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
