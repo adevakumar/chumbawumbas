@@ -19,21 +19,17 @@ def index(request):
 	)
 
 def closet(request):
-	#items in closet
-	num_clothing = Clothing.objects.all().count()
-	num_clothingtype = ClothingType.objects.all().count()
-	clothing_type = Clothing.objects.get(clothing_type)
-	clothing_picture = Clothing.objects.get(clothing_picture)
-	num_outfits = Outfit.objects.all().count()
-	num_comments = Comment.objects.all().count()
-	num_weather = Weather.objects.all().count()
-	num_user = User.objects.all().count()
+#items in closet
+	closet_clothing = Outfit.objects.all()
+	types = ClothingType.objects.get(type_name = "Skirt")
+	specific_outfit = Outfit.objects.get(outfit_name = "Formal")
+	specific_weather = Weather.objects.get(weather_type = "Cloudy")
 
 	return render(
 		request,
 		'closet.html',
-		context={'num_clothing':num_clothing,'num_clothingtype':num_clothingtype,'num_outfits':num_outfits,'num_weather':num_weather,'num_user':num_user},
-	)
+		context={'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
+)
 
 def friends(request):
 	num_user = User.objects.all().count()
@@ -44,7 +40,7 @@ def friends(request):
 		'friends.html',
 		context={'num_user':num_user,'user_name':user_name},
 	)
-	
+
 def profile(request):
 	user = User.objects.get(user_name='Seth')
 	previous_outfits = Outfit.objects.filter(user__user_name='Seth')[:3]
@@ -55,15 +51,21 @@ def profile(request):
 		request,
 		'profile.html',
 		context = {'user':user, 'previous_outfits':previous_outfits, 'favorite_outfits':favorite_outfits},
-)
+        )
 
 
 def weather(request):
+        date = Weather.objects.get(date='2017-11-01')
+        date1 = Weather.objects.get(date='2017-11-02')
+        date2 = Weather.objects.get(date='2017-11-03')
+        date3 = Weather.objects.get(date='2017-11-04')
+        date4 = Weather.objects.get(date='2017-11-05')
+        weather_type = Weather.objects.get(weather_type='Cloudy')
 
-	return render(
+        return render(
 		request,
 		'weather.html',
-		context = {},
+		context = {'date':date,'date1':date1,'date2':date2,'date3':date3,'date4':date4,'weather_type':weather_type},
 	)
 
 
