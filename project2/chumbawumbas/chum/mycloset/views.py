@@ -32,13 +32,15 @@ def closet(request):
 )
 
 def friends(request):
+	user1 = User.objects.get(user_name = 'Tim Richards')
+	user2 = User.objects.get(user_name = 'Bob')
+	user3 = User.objects.get(user_name = 'Michelle')
 	num_user = User.objects.all().count()
-	user_name = User.objects.get(user_name)
 
 	return render(
 		request,
 		'friends.html',
-		context={'num_user':num_user,'user_name':user_name},
+		context={'num_user':num_user,'user_one':user1, 'user_two':user2, 'user_three':user3},
 	)
 
 def profile(request):
