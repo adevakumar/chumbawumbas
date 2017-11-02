@@ -59,14 +59,17 @@ def profile(request):
 
 
 def weather(request):
-        date = Weather.objects.get(date='2017-11-02')
+        date = Weather.objects.get(date='2017-11-01')
+        date1 = Weather.objects.get(date='2017-11-02')
+        date2 = Weather.objects.get(date='2017-11-03')
+        date3 = Weather.objects.get(date='2017-11-04')
+        date4 = Weather.objects.get(date='2017-11-05')
         weather_type = Weather.objects.get(weather_type='Cloudy')
-
 
         return render(
 		request,
 		'weather.html',
-		context = {'date':date,'weather_type':weather_type},
+		context = {'date':date,'date1':date1,'date2':date2,'date3':date3,'date4':date4,'weather_type':weather_type},
 	)
 
 
