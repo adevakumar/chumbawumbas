@@ -18,11 +18,11 @@ class WeatherAdmin(admin.ModelAdmin):
 # Register the Admin classes for User using the decorator
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('user_name', 'profile_picture', 'phone', 'email', 'gender')
+    list_display = ('user_name', 'profile_picture', 'residence', 'phone', 'email', 'gender')
     
     fieldsets = (
         (None, {
-            'fields': ('user_name', 'profile_picture', 'gender')
+            'fields': ('user_name', 'profile_picture', 'gender', 'residence')
         }),
         ('Contact Information', {
             'fields': ('phone', 'email')
@@ -46,7 +46,7 @@ class ClothingTypeAdmin(admin.ModelAdmin):
 # Register the Admin classes for Outfit using the decorator
 @admin.register(Outfit)
 class OutfitAdmin(admin.ModelAdmin):
-    list_display = ('outfit_name', 'display_clothing', 'date', 'id')
+    list_display = ('outfit_name', 'user', 'favorite', 'display_clothing', 'date', 'id')
     inlines = [CommentInline]
 
 

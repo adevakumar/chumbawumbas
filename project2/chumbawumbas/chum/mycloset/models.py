@@ -39,6 +39,12 @@ class Outfit(models.Model):
     Model representing clothing (but not a specific copy of a book).
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular clothing across whole closet")
+    user = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
+    IS_FAVORITE = (
+        ('Y', 'Yes'),
+        ('N', 'No'),
+    )
+    favorite = models.CharField(max_length=1, choices=IS_FAVORITE, default='No')
     outfit_name = models.CharField(max_length=200, help_text="Enter outfit name")
     clothing = models.ManyToManyField(Clothing, help_text="Select all clothing for your outfit")
     date = models.DateField('Date', null=True, blank=True)
@@ -84,6 +90,7 @@ class User(models.Model):
     phone = models.CharField('Phone Number',max_length=10)
     email = models.TextField('Email', max_length=1000, help_text="Enter your email address", default = '')
     gender = models.CharField('Gender', max_length=1, help_text="Please Input F (Female), M (Male), or O (Other)", default = '')
+    residence = models.CharField('Residence', max_length=200, help_text="Enter your location of residence", default = '')
     closet = models.ManyToManyField('Clothing', help_text="Select clothing for closet")
 
     def __str__(self):
