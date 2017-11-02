@@ -59,7 +59,7 @@ def profile(request):
 
 
 def weather(request):
-        date1 = Weather.objects.get(date='2017-11-02')
+        date = Weather.objects.get(date='2017-11-02')
         date2 = Weather.objects.get(date='2017-11-03')
         date3 = Weather.objects.get(date='2017-11-04')
         date4 = Weather.objects.get(date='2017-11-05')
