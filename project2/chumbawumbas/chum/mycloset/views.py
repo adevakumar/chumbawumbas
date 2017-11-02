@@ -59,7 +59,7 @@ def profile(request):
 
 
 def weather(request):
-        date = Weather.objects.get(date='Nov 1')
+        date = Weather.objects.get(date='2017-11-01')
         wtype = Weather.objects.get(wtype='Cloudy')
 
 
