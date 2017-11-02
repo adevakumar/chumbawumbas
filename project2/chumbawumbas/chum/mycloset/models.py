@@ -72,6 +72,7 @@ class Comment(models.Model):
 
 class Weather(models.Model):
     weather_type = models.CharField(max_length=20)
+    degrees = models.CharField('Temperature',max_length=10)
     date = models.DateField('Date', null=True, blank=True)
 
     def __str__(self):
