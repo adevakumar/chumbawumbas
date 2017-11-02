@@ -59,10 +59,11 @@ def profile(request):
 
 
 def weather(request):
-        date = Weather.objects.get(date)
+        date = Weather.objects.get(date='Nov 1')
         wtype = Weather.objects.get(wtype='Cloudy')
 
-	return render(
+
+        return render(
 		request,
 		'weather.html',
 		context = {'date':date,'wtype':wtype},
