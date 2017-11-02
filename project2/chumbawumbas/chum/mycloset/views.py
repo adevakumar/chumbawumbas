@@ -10,7 +10,7 @@ def index(request):
 	# Put desired data fields here to allow for referencing in html for home page (index)
 	# Example: num_books=Book.objects.all().count()
 	# DONT FORGET TO ALSO POPULATE THE CONTEXT ARRAY IN THE THE RETURN STATEMENT BELOW
-
+	
 
 	return render(
 		request,
