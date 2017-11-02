@@ -31,11 +31,11 @@
     <div class="row">
       <!-- Profile Picture -->
       <div class="col-xs-12 col-sm-2 col-md-2">
-        <img src="MaleAvatar.png" class="rounded img-responsive" alt="User_Profile_Picture" width="200" height="200">
+        <img src="{{ user.profile_picture }}" class="rounded img-responsive" alt="User_Profile_Picture" width="200" height="200">
       </div>
       <!-- Profile Name -->
       <div class="col-xs-12 col-sm-10 col-md-10">
-        <h1 class="display-3">Amal's Page</h1>
+        <h1 class="display-3">{{ user.user_name }}'s Page</h1>
         <hr>
         <!-- Profile Description -->
         <p class="lead">I am a UMass Student. I have questionable fashion sense. Please be my friend!</p>
@@ -53,24 +53,24 @@
       <hr>
       <dl>
         <dt>Full Name</dt>
-        <dd>Amal Reyes</dd>
+        <dd>{{ user.user_name }}</dd>
       </dl>
       <dl>
-        <dt>Nickname</dt>
-        <dd>Molly</dd>
+        <dt>Gender</dt>
+        <dd>{{ user.gender }}
       </dl>
       <dl>
         <dt>Location of Residence</dt>
-        <dd><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Amherst, MA</dd>
+        <dd><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ user.residence }}</dd>
+      </dl>
+      <dl>
+        <dt>Phone Number</dt>
+        <dd>{{ user.phone }}
       </dl>
       <dl>
         <dt>Email</dt>
-        <dd>TestEmail</dd>
+        <dd>{{ user.email }}</dd>
       </dl> 
-      <dl>
-        <dt>Member Since</dt>
-        <dd>1 October 2017</dd>
-      </dl>
       <!-- Edit Profile Button -->
       <p class="lead">
         <a class="btn btn-default btn-sm" href="#" role="button">Edit Profile</a>
@@ -84,188 +84,24 @@
 
       <div class="previous display">
 
-        <!-- Yesterday Outfit -->
+        <!-- Previous Outfits -->
+        {% for outfit in previous_outfits %}
         <div class="row">
           <dl>
-            <dt class="text-center">Yesterday</dt>
+            <dt class="text-center">{{ outfit.outfit_name }}</dt>
             <dd>
+              {% for clothing in outfit.clothing.all %}
               <div class="col-xs-2 col-sm-2 col-md-2">
                 <dl>
-                  <dt>Sweatshirt</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-470698-1.jpg" class="img-responsive" alt="Sweatshirt"></dd>
+                  <dt>{{ clothing.clothing_name }}</dt>
+                  <dd><img src="{{ clothing.clothing_picture }}" class="img-responsive" alt="{{ clothing.clothing_type }}"></dd>
                 </dl>
               </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shirt</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-438941-1.jpg" class="img-responsive" alt="Shirt"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Pants</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-454391-1.jpg" class="img-responsive" alt="Pants"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Socks</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-475089-1.jpg" class="img-responsive" alt="Socks"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shoes</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473675-1.jpg" class="img-responsive" alt="Shoes"></dd>
-                </dl>
-              </div>
+              {% endfor %}
             </dd>
           </dl>
         </div>
-
-        <!-- Two Days Ago Outfit -->
-        <div class="row">
-          <dl>
-            <dt class="text-center">Two Days Ago</dt>
-            <dd>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Hat</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473514-2.jpg" class="img-responsive" alt="Hat"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shirt</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-438941-2.jpg" class="img-responsive" alt="Shirt"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Pants</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473574-1.jpg" class="img-responsive" alt="Pants"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Socks</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473553-1.jpg" class="img-responsive" alt="Socks"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shoes</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473674-1.jpg" class="img-responsive" alt="Shoes"></dd>
-                </dl>
-              </div>
-            </dd>
-          </dl>
-        </div>
-
-        <!-- Three Days Ago Outfit -->
-        <div class="row">
-          <dl>
-            <dt class="text-center">Three Days Ago</dt>
-            <dd>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shirt</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-453549-1.JPG" class="img-responsive" alt="Shirt"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Pants</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473287-1.jpg" class="img-responsive" alt="Pants"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Socks</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-475090-1.jpg" class="img-responsive" alt="Socks"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shoes</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-457703-1.jpg" class="img-responsive" alt="Shoes"></dd>
-                </dl>
-              </div>
-            </dd>
-          </dl>
-        </div>
-
-        <!-- Four Dys Ago Outfit -->
-        <div class="row">
-          <dl>
-            <dt class="text-center">Four Days Ago</dt>
-            <dd>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Sweatshirt</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-470698-1.jpg" class="img-responsive" alt="Sweatshirt"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shirt</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-438941-1.jpg" class="img-responsive" alt="Shirt"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Pants</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-454391-1.jpg" class="img-responsive" alt="Pants"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Socks</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-475089-1.jpg" class="img-responsive" alt="Socks"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shoes</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473675-1.jpg" class="img-responsive" alt="Shoes"></dd>
-                </dl>
-              </div>
-            </dd>
-          </dl>
-        </div>
-
-        <!-- Five Days Ago Oufit -->
-        <div class="row">
-          <dl>
-            <dt class="text-center">Five Days Ago</dt>
-            <dd>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shirt</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-453549-1.JPG" class="img-responsive" alt="Shirt"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Pants</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-473287-1.jpg" class="img-responsive" alt="Pants"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Socks</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-475090-1.jpg" class="img-responsive" alt="Socks"></dd>
-                </dl>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2">
-                <dl>
-                  <dt>Shoes</dt>
-                  <dd><img src="http://umassstore.com/StoreImages/266-457703-1.jpg" class="img-responsive" alt="Shoes"></dd>
-                </dl>
-              </div>
-            </dd>
-          </dl>
-        </div>
+        {% endfor %}
 
       </div>
 
@@ -279,34 +115,24 @@
       <div class="favorite display">
 
         <!-- First Favorite Outfit -->
+        {% for outfit in favorite_outfits %}
         <div class="row">
-          <!-- Shirt -->
-          <div class="col-xs-2 col-sm-2 col-md-2">
-            <dl>
-              <dt>Shirt</dt>
-              <dd><img src="http://umassstore.com/StoreImages/266-523327-1.jpg" class="img-responsive" alt="Shirt"></dd>
-            </dl>
-          </div>
-          <!-- Pants -->
-          <div class="col-xs-2 col-sm-2 col-md-2">
-            <dl>
-              <dt>Pants</dt>
-              <dd><img src="http://umassstore.com/StoreImages/266-474853-1.jpg" class="img-responsive" alt="Pants"></dd>
-            </dl>
-          </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
-            <dl>
-              <dt>Socks</dt>
-              <dd><img src="http://umassstore.com/StoreImages/266-473554-1.jpg" class="img-responsive" alt="Socks"></dd>
-            </dl>
-          </div>
-           <div class="col-xs-2 col-sm-2 col-md-2">
-            <dl>
-              <dt>Shoes</dt>
-              <dd><img src="http://umassstore.com/StoreImages/266-473673-1.jpg" class="img-responsive" alt="Shoes"></dd>
-            </dl>
-          </div>
+          <dl>
+            <dt class="text-center">{{ outfit.outfit_name }}</dt>
+            <dd>
+              {% for clothing in outfit.clothing.all %}
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <dl>
+                  <dt>{{ clothing.clothing_name }}</dt>
+                  <dd><img src="{{ clothing.clothing_picture }}" class="img-responsive" alt="{{ clothing.clothing_type }}"></dd>
+                </dl>
+              </div>
+              {% endfor %}
+            </dd>
+          </dl>
         </div>
+        {% endfor %}
+
       </div>
 
     </div>
