@@ -1,0 +1,126 @@
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+# Create your views here.
+from .models import Clothing, ClothingType, Outfit, Comment, Weather, UserProfile
+
+def index(request):
+	"""
+	View function for the home page of our site.
+	"""
+	# Put desired data fields here to allow for referencing in html for home page (index)
+	# Example: num_books=Book.objects.all().count()
+	# DONT FORGET TO ALSO POPULATE THE CONTEXT ARRAY IN THE THE RETURN STATEMENT BELOW
+
+
+	return render(
+		request,
+		'index.html',
+		context={},
+	)
+
+def closet(request):
+#items in closet
+	closet_clothing = Outfit.objects.all()
+	types = ClothingType.objects.get(type_name = "Skirt")
+	specific_outfit = Outfit.objects.get(outfit_name = "Formal")
+	specific_weather = Weather.objects.get(weather_type = "Cloudy")
+
+	return render(
+		request,
+		'closet.html',
+		context={'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
+)
+
+def friends(request):
+	user1 = UserProfile.objects.get(user__username = 'Tim Richards')
+	user2 = UserProfile.objects.get(user__username = 'Bob')
+	user3 = UserProfile.objects.get(user__username = 'Michelle')
+	num_user = User.objects.all().count()
+
+	return render(
+		request,
+		'friends.html',
+		context={'num_user':num_user,'user_one':user1, 'user_two':user2, 'user_three':user3},
+	)
+
+
+@login_required
+def profile(request):
+	user_profile = UserProfile.objects.get(user=request.user)
+	previous_outfits = Outfit.objects.filter(user=request.user)[:3]
+	favorite_outfits = Outfit.objects.filter(user=request.user).filter(favorite='Y')
+
+
+	return render(
+		request,
+		'profile.html',
+		context = {'user_profile':user_profile, 'previous_outfits':previous_outfits, 'favorite_outfits':favorite_outfits},
+        )
+
+
+def weather(request):
+        date = Weather.objects.get(date='2017-11-02')
+        date2 = Weather.objects.get(date='2017-11-03')
+        date3 = Weather.objects.get(date='2017-11-04')
+        date4 = Weather.objects.get(date='2017-11-05')
+        weather_type = Weather.objects.get(weather_type='Cloudy')
+
+        return render(
+		request,
+		'weather.html',
+		context = {'date':date,'date2':date2,'date3':date3,'date4':date4,'weather_type':weather_type},
+	)
+
+
+def about(request):
+
+	return render(
+		request,
+		'fifth.html',
+		context = {},
+	)
+
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
+#from .forms import UpdateProfileForm
+
+# @login_required
+# def update_profile(request, pk):
+#     """
+#     View function for renewing a specific BookInstance by librarian
+#     """
+#     user_prof=get_object_or_404(UserProfile, pk = pk)
+
+#     # If this is a POST request then process the Form data
+#     if request.method == 'POST':
+
+#         # Create a form instance and populate it with data from the request (binding):
+#         form = UpdateProfileForm(request.POST)
+
+#         # Check if the form is valid:
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+#             user_prof.profile_picture = form.cleaned_data['profile_picture']
+#             user_prof.description = form.cleaned_data['description']
+#             user_prof.gender = form.cleaned_data['gender']
+#             user_prof.phone = form.cleaned_data['phone']
+#             user_prof.residence = form.cleaned_data['residence']
+#             user_prof.save()
+
+#             # redirect to a new URL:
+#             return HttpResponseRedirect(reverse('profile') )
+
+#     # If this is a GET (or any other method) create the default form.
+#     else:
+#         form = UpdateProfileForm(initial={'profile_picture': user_prof.profile_picture, 'description': user_prof.description, 'gender': user_prof.gender, 'phone': user_prof.phone, 'residence': user_prof.residence,})
+
+#     return render(request, 'mycloset/update_profile', {'form': form, 'user_profile':user_prof})
+
+
+
+
+
