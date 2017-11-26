@@ -82,45 +82,40 @@ def about(request):
 	)
 
 
+#from django.contrib.auth.decorators import permission_required
+
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+import datetime
 
-#from .forms import UpdateProfileForm
+from .forms import UpdateProfileForm
 
-# @login_required
-# def update_profile(request, pk):
-#     """
-#     View function for renewing a specific BookInstance by librarian
-#     """
-#     user_prof=get_object_or_404(UserProfile, pk = pk)
+#@permission_required('catalog.can_mark_returned')
+def update_profile(request, pk):
+    """
+    View function for renewing a specific BookInstance by librarian
+    """
+    user_profile=get_object_or_404(UserProfile, pk = pk)
 
-#     # If this is a POST request then process the Form data
-#     if request.method == 'POST':
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
 
-#         # Create a form instance and populate it with data from the request (binding):
-#         form = UpdateProfileForm(request.POST)
+        # Create a form instance and populate it with data from the request (binding):
+        form = UpdateProfileForm(request.POST)
 
-#         # Check if the form is valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-#             user_prof.profile_picture = form.cleaned_data['profile_picture']
-#             user_prof.description = form.cleaned_data['description']
-#             user_prof.gender = form.cleaned_data['gender']
-#             user_prof.phone = form.cleaned_data['phone']
-#             user_prof.residence = form.cleaned_data['residence']
-#             user_prof.save()
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            user_profile.residence = form.cleaned_data['new_residence']
+            user_profile.save()
 
-#             # redirect to a new URL:
-#             return HttpResponseRedirect(reverse('profile') )
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('profile') )
 
-#     # If this is a GET (or any other method) create the default form.
-#     else:
-#         form = UpdateProfileForm(initial={'profile_picture': user_prof.profile_picture, 'description': user_prof.description, 'gender': user_prof.gender, 'phone': user_prof.phone, 'residence': user_prof.residence,})
+    # If this is a GET (or any other method) create the default form.
+    else:
+        proposed_residence = user_profile.residence
+        form = UpdateProfileForm(initial={'new_residence': proposed_residence,})
 
-#     return render(request, 'mycloset/update_profile', {'form': form, 'user_profile':user_prof})
-
-
-
-
-
+    return render(request, 'mycloset/update_profile.html', {'form': form, 'user_profile':user_profile})

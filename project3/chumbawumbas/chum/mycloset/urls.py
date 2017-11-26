@@ -12,6 +12,6 @@ urlpatterns = [
 	url(r'^fifth.html$', views.about, name='about'),
 ]
 
-# urlpatterns += [   
-#     url(r'^profile/update/$', views.update_profile, name='update-profile'),
-# ]
+urlpatterns += [   
+    url(r'^profile/(?P<pk>[-\w]+)/update/$', views.update_profile, name='update-profile'),
+]
