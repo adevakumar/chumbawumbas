@@ -94,7 +94,7 @@ from .forms import UpdateProfileForm
 #@permission_required('catalog.can_mark_returned')
 def update_profile(request, pk):
     """
-    View function for renewing a specific BookInstance by librarian
+    View function for updating a user profile
     """
     user_profile=get_object_or_404(UserProfile, pk = pk)
 
@@ -107,7 +107,13 @@ def update_profile(request, pk):
         # Check if the form is valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            user_profile.user.first_name = form.cleaned_data['new_first_name']
+            user_profile.user.last_name = form.cleaned_data['new_last_name']
+            user_profile.gender = form.cleaned_data['new_gender']
             user_profile.residence = form.cleaned_data['new_residence']
+            user_profile.phone = form.cleaned_data['new_phone']
+            user_profile.user.email = form.cleaned_data['new_email']
+            user_profile.user.save()
             user_profile.save()
 
             # redirect to a new URL:
@@ -115,7 +121,12 @@ def update_profile(request, pk):
 
     # If this is a GET (or any other method) create the default form.
     else:
-        proposed_residence = user_profile.residence
-        form = UpdateProfileForm(initial={'new_residence': proposed_residence,})
+      proposed_first_name = user_profile.user.first_name
+      proposed_last_name = user_profile.user.last_name
+      proposed_residence = user_profile.residence
+      proposed_gender = user_profile.gender
+      proposed_phone = user_profile.phone
+      proposed_email = user_profile.user.email
+      form = UpdateProfileForm(initial={'new_first_name': proposed_first_name, 'new_last_name': proposed_last_name,'new_residence': proposed_residence, 'new_gender': proposed_gender, 'new_phone': proposed_phone, 'new_email': proposed_email,})
 
     return render(request, 'mycloset/update_profile.html', {'form': form, 'user_profile':user_profile})
