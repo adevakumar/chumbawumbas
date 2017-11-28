@@ -91,6 +91,7 @@ from django.core.urlresolvers import reverse
 import datetime
 
 from .forms import UpdateProfileForm
+from .forms import AddClothingForm
 
 #@permission_required('catalog.can_mark_returned')
 def update_profile(request, pk):
@@ -144,7 +145,7 @@ def add_clothing(request, pk):
 		form = AddClothingForm(request.POST)
 
 		if form.is_valid():
-			clothing = Clothing.objects.create(clothing_name=form.cleaned_data['new_clothing_name'], clothing_type=form.cleaned_data['new_clothing_type'], clothing_picture=form.cleaned_data['new_clothing_picture'], weather=form.cleaned_data['new_weather'])
+			clothing = Clothing.objects.create(clothing_name=form.cleaned_data['new_clothing_name'], clothing_type=form.cleaned_data['new_clothing_type'], clothing_picture=form.cleaned_data['new_clothing_picture'], weather=form.cleaned_data['new_weather_type'])
 			user_profile.closet.append(clothing)
 			user_profile.save()
 
