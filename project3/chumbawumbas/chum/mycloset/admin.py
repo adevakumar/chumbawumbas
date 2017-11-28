@@ -14,16 +14,16 @@ class CommentInline(admin.TabularInline):
 class WeatherAdmin(admin.ModelAdmin):
     list_display = ('weather_type', 'date')
 
-
+# admin.site.register(UserProfile)
 # Register the Admin classes for UserProfile using the decorator
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    readonly_fields=('display_user_name', 'display_email')
-    list_display = ('display_user_name', 'profile_picture', 'description', 'residence', 'display_email','phone', 'gender')
+    readonly_fields=('display_user_name', 'display_email', 'display_clothing', 'display_friends')
+    list_display = ('display_user_name', 'profile_picture', 'description', 'display_clothing', 'display_friends','residence', 'display_email','phone', 'gender')
     
     fieldsets = (
         (None, {
-            'fields': ('display_user_name', 'profile_picture', 'description', 'gender', 'residence')
+            'fields': ('display_user_name', 'profile_picture', 'description', 'display_clothing', 'display_friends', 'gender', 'residence')
         }),
         ('Contact Information', {
             'fields': ('phone', 'display_email')

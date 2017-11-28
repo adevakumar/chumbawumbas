@@ -33,16 +33,15 @@ def closet(request):
 		context={'user_profile': user_profile, 'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
 )
 
+@login_required
 def friends(request):
-	user1 = UserProfile.objects.get(user__username = 'Tim Richards')
-	user2 = UserProfile.objects.get(user__username = 'Bob')
-	user3 = UserProfile.objects.get(user__username = 'Michelle')
-	num_user = User.objects.all().count()
+	user_profile = UserProfile.objects.get(user=request.user)
+	num_user = UserProfile.objects.all().count()
 
 	return render(
 		request,
 		'friends.html',
-		context={'num_user':num_user,'user_one':user1, 'user_two':user2, 'user_three':user3},
+		context={'num_user':num_user,'user_profile':user_profile},
 	)
 
 
@@ -146,7 +145,7 @@ def add_clothing(request, pk):
 
 		if form.is_valid():
 			clothing = Clothing.objects.create(clothing_name=form.cleaned_data['new_clothing_name'], clothing_type=form.cleaned_data['new_clothing_type'], clothing_picture=form.cleaned_data['new_clothing_picture'], weather=form.cleaned_data['new_weather_type'])
-			user_profile.closet.append(clothing)
+			user_profile.closet.add(clothing)
 			user_profile.save()
 
 			return HttpResponseRedirect(reverse('closet'))

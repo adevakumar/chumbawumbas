@@ -97,6 +97,7 @@ class UserProfile(models.Model):
     gender = models.CharField('Gender', max_length=1, help_text="Please Input F (Female), M (Male), or O (Other)", default = '')
     residence = models.CharField('Residence', max_length=200, help_text="Enter your location of residence", default = '')
     closet = models.ManyToManyField('Clothing', help_text="Select clothing for closet")
+    friends = models.ManyToManyField('UserProfile', help_text="Select friends for this user")
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -118,6 +119,20 @@ class UserProfile(models.Model):
         Creates a string for user.username. This is required to display username in Admin.
         """
         return self.user.email
+
+    def display_clothing(self):
+        """
+        Creates a string for user.username. This is required to display username in Admin.
+        """
+        return ', '.join([ closet.clothing_name for closet in self.closet.all()[:3] ])
+    display_clothing.short_description = 'Closet'
+
+    def display_friends(self):
+        """
+        Creates a string for user.username. This is required to display username in Admin.
+        """
+        return ', '.join([ friends.user.username for friends in self.friends.all()[:3] ])
+    display_friends.short_description = 'Friends'
 
     def __str__(self):
         """
