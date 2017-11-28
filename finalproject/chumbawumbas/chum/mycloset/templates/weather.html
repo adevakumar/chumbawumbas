@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/weather-style.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+</head>
+<body>
+<div class="nav">
+  <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
+  <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
+  <li role="presentation"><a href="{% url 'profile' %}">Profile</a></li>
+  <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
+  <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
+  <li role="presentation"><a href="{% url 'about' %}">About</a></li>
+  {% if user.is_authenticated %}
+    <li role="presentation" class="pull-right"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    <li role="presentation" class="pull-right navbar-text"> {{ user.get_username }} </li>
+  {% else %}
+    <li role="presentation" class="pull-right"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+  {% endif %}
+</div>
+<div class="container">
+  <h1>What's the Weather Like?</h1>
+</div>
+
+	<div class="header">
+		<div class="header-top">
+			<h2><img class="whe" src="images/sun.png" alt="" />Today is {{ date.date }}</h2>
+			<ul>
+				<li><p>°F</p></li>
+				<li><p class="cen">°C</p></li>
+			</ul>
+			<div class="clear"> </div>
+		</div>
+		<div class="header-bottom">
+			<div class="header-bottom1">
+				<div class="header-head">
+				<h4>{{ weather_type }}</h4>
+				<img src="images/cloudy.png" alt="" />
+				<h6>20°</h6>
+				<div class="bottom-head">
+					<p>{{ date.date }}</p>
+					<p>Wednesday</p>
+				</div>
+			</div>
+			</div>
+			<div class="header-bottom1 header-bottom2">
+				<div class="header-head">
+			<h4>{{ date2 }}</h4>
+			<img src="images/sunn.png" alt="" />
+			<h6>37°</h6>
+			<div class="bottom-head">
+					<p>{{ date2.date }}</p>
+					<p>Thursday</p>
+				</div>
+			</div>
+			</div>
+			<div class="header-bottom1">
+				<div class="header-head">
+				<h4>{{ date3 }}</h4>
+				<img src="images/rain.png" alt="" />
+				<h6>7°</h6>
+				<div class="bottom-head">
+					<p>{{ date3.date }}</p>
+					<p>Friday</p>
+				</div>
+			</div>
+			</div>
+			<div class="header-bottom1 header-bottom2">
+				<div class="header-head">
+			<h4>{{ date4 }}</h4>
+			<img src="images/rain.png" alt="" />
+			<h6>-10°</h6>
+			<div class="bottom-head">
+					<p>{{ date4.date }}</p>
+					<p>Saturday</p>
+				</div>
+				</div>
+			</div>
+			<div class="clear"> </div>
+		</div>
+	</div>
+
+</body>
+</html>

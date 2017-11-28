@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang ="en">
+<title>Profile Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
+  <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
+  <li role="presentation"><a href="{% url 'profile' %}">My Profile</a></li>
+  <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
+  <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
+  {% if user.is_authenticated %}
+    <li role="presentation" class="pull-right"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    <li role="presentation" class="pull-right navbar-text"> {{ user.get_username }} </li>
+  {% else %}
+    <li role="presentation" class="pull-right"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+  {% endif %}
+</ul>
+
+{% load static %}
+<link rel ="stylesheet" type= "text/css" href ="{% static 'css/friendStyle.css' %}">
+<div class ="container">
+  <div class="top">
+    <h1>Friend's List</h1>
+  </div>
+    <h3><a href = "#" id = "addfriend"> Add a friend! </a> </h3>
+    <h4><a hred = "#"> Pending requests</a></h4>
+
+  <div class="row">
+  <ul id= "friendslist">
+    <div class="shadow">
+      <hr />
+
+      {% for friend in user_profile.friends.all %}
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <div class="col-md-2">
+          <img src={{friend.profile_picture}} class="img-circle" width="60px">
+        </div>
+        <div class="col-md-8">
+          <li><h2><a href="#">{{friend.display_user_name}}</a></h2></li>
+        <div class="col-md-2">
+          <br>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+
+<!--
+
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <div class="col-md-2">
+          <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="60px">
+        </div>
+        <div class = "col-md-8">
+          <li><h2><a href="#">Smitn Johh</a></h2></li>
+        <div class="col-md-2">
+          <br>
+        </div>
+         </div>
+         </div>
+      <div class="clearfix"></div>
+-->
+     
+
+
+      </ul>
+
+
+
+
+
+
+      </div>
+    </div>
+</div>
+</div>
+</html>

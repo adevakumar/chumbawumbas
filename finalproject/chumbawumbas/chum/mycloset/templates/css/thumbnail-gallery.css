@@ -1,0 +1,11 @@
+.nav.inline-navbar>li{
+  float: none;
+  display: inline-block;
+
+}
+.nav.inline-navbar {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    padding-bottom: 15px;
+  }

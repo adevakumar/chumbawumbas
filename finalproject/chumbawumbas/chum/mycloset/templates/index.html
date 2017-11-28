@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Choose My Clothing!</title>
+  {% load static %}
+  <link rel="stylesheet" href = "{% static  './css/index-style.css' %}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+
+  <h1 class = "centeredHeader">Welcome to Choose My Clothing!</h1>
+  
+  
+  <p class = "clickable">
+  <a href = "{% url 'closet' %}">
+  Click Me to go to your Virtual Closet!
+  </a>
+  </p>
+  <p class = "clickable">
+  <a href = "{% url 'friends' %}">
+  Click Me to go to your Friends!
+  </a>
+  </p>
+  <p class = "clickable">
+  <a href = "{% url 'profile' %}">
+  Click Me to go to your Profile!
+  </a>
+  </p>
+  
+  <p class = "clickable">
+  <a href = "{% url 'about' %}">
+  Click Me to learn more about <i>Choose My Clothing!</i>
+  </p>
+  
+  <p class = "clickable">
+  <a href = "{% url 'weather' %}">
+  Click Me to learn more about Today's Weather!
+  </p>
+
+
+  <p class = "clickable">
+  <!-- TEST CODE SO I CAN LOGIN AND LOGOUT - CHANGE/DELETE AS DESIRED -->
+  
+   {% if user.is_authenticated %}
+     User: {{ user.get_username }}
+     <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>  
+   {% else %}
+     <a href="{% url 'login'%}?next={{request.path}}">Login</a>   
+   {% endif %} 
+  
+  <!-- END -->
+  </p>
+  
+  
+  
+  
+
+
+</body>
+</html>
