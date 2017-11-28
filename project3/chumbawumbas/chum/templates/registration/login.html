@@ -5,8 +5,8 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href = "{% static  'css/style.css' %}">
+  
+  <link rel="stylesheet" type="text/css" href = "{% static  'css/style.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -19,14 +19,14 @@
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p class = "clickable">
+   <p>
     <h1>
     Your account doesn't have access to this page. To proceed,
     please login with an account that has access.
   </h1>
     </p>
     {% else %}
-    <p class = "clickable">
+    <p>
       <h1>
     Please login to see this page.
     </h1>
@@ -37,24 +37,31 @@
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</div>
 
-<div>
+
+  <p>{{ form.username.label_tag }}</p>
+  <p>{{ form.username }}</p>
+
+
+  <p>{{ form.password.label_tag }}</p>
+  <p>{{ form.password }}</p>
+
+
+
+<p>
   <input type="submit" value="login" />
   <input type="hidden" name="next" value="{{ next }}" />
-</div>
+</p>
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
-<p><a href="{% url 'index' %}">Return to Home Page</a></p>
+<br>
+<br>
+
+<p class = "clickable"><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<br>
+<br>
+<p class = "clickable"><a href="{% url 'index' %}">Return to Home Page</a></p>
 </body>
 </html>

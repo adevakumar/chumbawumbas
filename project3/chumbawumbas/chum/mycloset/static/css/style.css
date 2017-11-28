@@ -11,9 +11,9 @@ h1 {
 
 p {
 	margin: auto;
-	margin-top: 4em;
+	/*margin-top: 4em;*/
 	position: center;
-	padding: 20px;
+	padding: 5px;
 	width: 50%;
     border-radius: 0 0 0 0;
 	font-size: 1.5em;
@@ -30,7 +30,7 @@ p {
 	margin-top: 1em;
 	position: relative;
 	padding: 20px;
-	width: 50%;
+	width: 10em;
 	font-size: 1.5em;
 	font-family: futura;
 }
@@ -46,7 +46,7 @@ p {
 }
 
 .clickable:hover {
-	width: 50%;
+	width: 12em;
     transition: .5s;
     background-color: #A9A5DC;
     border-radius: 50px 50px 50px 50px;
