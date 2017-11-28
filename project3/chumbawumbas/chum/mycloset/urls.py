@@ -14,4 +14,5 @@ urlpatterns = [
 
 urlpatterns += [   
     url(r'^profile/(?P<pk>[-\w]+)/update/$', views.update_profile, name='update-profile'),
+    url(r'^closet/(?P<pk>[-\w]+)/add/$', views.add_clothing, name='add-clothing'),
 ]

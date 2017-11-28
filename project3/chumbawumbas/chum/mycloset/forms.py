@@ -1,5 +1,7 @@
 from django import forms
 
+from .models import Weather, UserProfile, Clothing, ClothingType, Outfit, Comment
+
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime #for checking renewal date range.
@@ -51,8 +53,9 @@ class UpdateProfileForm(forms.Form):
 
 class AddClothingForm(forms.Form):
     new_clothing_name = forms.CharField(help_text="Enter the clothing name")
-    new_clothing_type = forms.CharField(help_text="Enter the type of clothing")
-    new_weather = forms.CharField(help_text = "enter the type of clothing")
+    new_clothing_type = forms.ModelChoiceField(queryset=ClothingType.objects.all())
+    new_clothing_picture = forms.CharField(help_text="Enter a valid image URL")
+    new_weather_type = forms.ModelChoiceField(queryset=Weather.objects.all())
     
     def clean_clothing_name(self):
         data = self.cleaned_data['new_clothing_name']
@@ -60,6 +63,10 @@ class AddClothingForm(forms.Form):
 
     def clean_clothing_type(self):
         data = self.cleaned_data['new_clothing_type']
+        return data
+
+    def clean_clothing_picture(self):
+        data = self.cleaned_data['new_clothing_picture']
         return data
 
     def clean_clothing_weather(self):

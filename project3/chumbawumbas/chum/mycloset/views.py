@@ -21,6 +21,7 @@ def index(request):
 
 def closet(request):
 #items in closet
+	user_profile = UserProfile.objects.get(user=request.user)
 	closet_clothing = Outfit.objects.all()
 	types = ClothingType.objects.get(type_name = "Skirt")
 	specific_outfit = Outfit.objects.get(outfit_name = "Formal")
@@ -29,7 +30,7 @@ def closet(request):
 	return render(
 		request,
 		'closet.html',
-		context={'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
+		context={'user_profile': user_profile, 'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
 )
 
 def friends(request):
@@ -132,18 +133,24 @@ def update_profile(request, pk):
     return render(request, 'mycloset/update_profile.html', {'form': form, 'user_profile':user_profile})
 
 
-
 def add_clothing(request, pk):
+	"""
+	View function for adding clothing to your closet
+	"""
+	user_profile=get_object_or_404(UserProfile, pk = pk)
 
-    user_profile=get_object_or_404(UserProfile, pk = pk)
+	if request.method == 'POST':
 
-    # If this is a POST request then process the Form data
-    if request.method == 'POST':
+		form = AddClothingForm(request.POST)
 
-        # Create a form instance and populate it with data from the request (binding):
-        form = AddClothingForm(request.POST)
+		if form.is_valid():
+			clothing = Clothing.objects.create(clothing_name=form.cleaned_data['new_clothing_name'], clothing_type=form.cleaned_data['new_clothing_type'], clothing_picture=form.cleaned_data['new_clothing_picture'], weather=form.cleaned_data['new_weather'])
+			user_profile.closet.append(clothing)
+			user_profile.save()
 
-        # Check if the form is valid:
-        if form.is_valid():
-           Clothing.objects.create({'new_clothing_name': clothing_name, 'new_clothing_type': clothing_type, 'new_weather': clothing_weather})
-    return render(request, 'mycloset/add_clothing.html',{'form':form}
+			return HttpResponseRedirect(reverse('closet'))
+
+	else:
+		form = AddClothingForm()
+
+	return render(request, 'mycloset/add_clothing.html', {'form': form, 'user_profile': user_profile})
