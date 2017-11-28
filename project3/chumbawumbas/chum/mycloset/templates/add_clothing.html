@@ -1,0 +1,9 @@
+<h1>Update Profile: {{ user_profile.display_user_name }}</h1>
+    
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form }}
+    </table>
+    <input type="submit" value="Submit" />
+</form>

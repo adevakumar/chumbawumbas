@@ -130,3 +130,20 @@ def update_profile(request, pk):
       form = UpdateProfileForm(initial={'new_first_name': proposed_first_name, 'new_last_name': proposed_last_name,'new_residence': proposed_residence, 'new_gender': proposed_gender, 'new_phone': proposed_phone, 'new_email': proposed_email,})
 
     return render(request, 'mycloset/update_profile.html', {'form': form, 'user_profile':user_profile})
+
+
+
+def add_clothing(request, pk):
+
+    user_profile=get_object_or_404(UserProfile, pk = pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = AddClothingForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+           Clothing.objects.create({'new_clothing_name': clothing_name, 'new_clothing_type': clothing_type, 'new_weather': clothing_weather})
+    return render(request, 'mycloset/add_clothing.html',{'form':form}

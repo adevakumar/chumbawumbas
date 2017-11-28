@@ -47,3 +47,21 @@ class UpdateProfileForm(forms.Form):
 
         # Remember to always return the cleaned data.
         return data
+
+
+class AddClothingForm(forms.Form):
+    new_clothing_name = forms.CharField(help_text="Enter the clothing name")
+    new_clothing_type = forms.CharField(help_text="Enter the type of clothing")
+    new_weather = forms.CharField(help_text = "enter the type of clothing")
+    
+    def clean_clothing_name(self):
+        data = self.cleaned_data['new_clothing_name']
+        return data
+
+    def clean_clothing_type(self):
+        data = self.cleaned_data['new_clothing_type']
+        return data
+
+    def clean_clothing_weather(self):
+        data = self.cleaned_data['new_weather']
+        return data
