@@ -16,6 +16,12 @@
     <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
     <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
     <li role="presentation"><a href="{% url 'about' %}">About</a></li>
+    {% if user.is_authenticated %}
+    <li role="presentation" class="pull-right"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    <li role="presentation" class="pull-right navbar-text"> {{ user.get_username }} </li>
+  {% else %}
+    <li role="presentation" class="pull-right"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+  {% endif %}
   </ul>
 <div class="container">
   <h1>Closet Page</h1>
