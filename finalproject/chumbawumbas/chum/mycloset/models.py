@@ -13,7 +13,6 @@ class Clothing(models.Model):
     clothing_name = models.CharField(max_length=200, help_text="Enter clothing name (e.g. Dark Wash Jeans)", default="")
     clothing_type = models.ForeignKey('ClothingType', on_delete=models.SET_NULL, null=True)
     clothing_picture = models.CharField(max_length=200, help_text="Enter the url for your desired image", null=True)
-    weather = models.ForeignKey('Weather', on_delete=models.SET_NULL, null=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular clothing across whole closet")
 
     def __str__(self):
@@ -27,7 +26,7 @@ class ClothingType(models.Model):
     """
     Model representing clothing classification (shirt, pants, etc)
     """
-    type_name = models.CharField(max_length=200, help_text="Enter a clothing type (Shirt, Pants, etc.)")
+    type_name = models.CharField(max_length=200, help_text="Enter a clothing classification")
 
     def __str__(self):
         """
@@ -71,9 +70,29 @@ class Comment(models.Model):
     outfit = models.ForeignKey('Outfit', on_delete=models.CASCADE, null=True)
     date = models.DateField('Date', null=True, blank=True)
 
+class WeatherType(models.Model):
+    """
+    Model representing weather classification (sunny, rainy, etc)
+    """
+    type_name = models.CharField(max_length=200, help_text="Enter a clothing type (Shirt, Pants, etc.)")
+    clothing_types = models.ManyToManyField('ClothingType', help_text="Select clothing types to be simultaneously worn in this weather")
+
+    def display_clothing_types(self):
+        """
+        Creates a string for user.username. This is required to display username in Admin.
+        """
+        return ', '.join([ clothing_types.type_name for clothing_types in self.clothing_types.all()[:3] ])
+    display_clothing_types.short_description = 'Clothing Types'
+
+    def __str__(self):
+        """
+        String for representing the Clothing object.
+        """
+        return self.type_name
+
 
 class Weather(models.Model):
-    weather_type = models.CharField(max_length=20)
+    weather_type = models.ForeignKey('WeatherType', on_delete=models.SET_NULL, null=True)
     date = models.DateField('Date', null=True, blank=True)
 
     def __str__(self):

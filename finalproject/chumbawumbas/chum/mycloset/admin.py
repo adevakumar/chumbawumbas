@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Weather, UserProfile, Clothing, ClothingType, Outfit, Comment
+from .models import Weather, WeatherType, UserProfile, Clothing, ClothingType, Outfit, Comment
 
 
 class CommentInline(admin.TabularInline):
@@ -13,6 +13,10 @@ class CommentInline(admin.TabularInline):
 @admin.register(Weather)
 class WeatherAdmin(admin.ModelAdmin):
     list_display = ('weather_type', 'date')
+
+@admin.register(WeatherType)
+class WeatherTypeAdmin(admin.ModelAdmin):
+    pass
 
 # admin.site.register(UserProfile)
 # Register the Admin classes for UserProfile using the decorator
@@ -34,8 +38,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 # Register the Admin classes for Clothing using the decorator
 @admin.register(Clothing)
 class ClothingAdmin(admin.ModelAdmin):
-    list_display = ('clothing_name', 'clothing_type', 'clothing_picture', 'weather', 'id')
-    list_filter = ('clothing_type', 'weather')
+    list_display = ('clothing_name', 'clothing_type', 'clothing_picture',  'id')
+    list_filter = ('clothing_type',)
 
 
 # Register the Admin classes for ClothingType using the decorator

@@ -46,6 +46,32 @@
   </head>
   <body>
 
+    <!-- STUFF ADDED BY TOM -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3">
+        <dt style="font-size: 300%" class="text-center">Today's weather is:</dt>
+        <dd style="font-size: 800%" class="text-center">{{ weather_today.weather_type }}</dd>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-9">
+        <dl>
+          <dt class="text-center">{{ suggested_outfit.outfit_name }}</dt>
+          <dd>
+            {% for clothing in suggested_outfit.clothing.all %}
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <dl>
+                <dt>{{ clothing.clothing_name }}</dt>
+                <dd><img src="{{ clothing.clothing_picture }}" class="img-responsive" alt="{{ clothing.clothing_type }}"></dd>
+              </dl>
+            </div>
+            {% endfor %}
+          </dd>
+        </dl>
+      </div>
+
+    </div>
+    <!-- END -->
+
 
     <!-- Page Content -->
     {% block navbar %}

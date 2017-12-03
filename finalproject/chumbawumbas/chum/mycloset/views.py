@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+import datetime
+import random
 
 # Create your views here.
 from .models import Clothing, ClothingType, Outfit, Comment, Weather, UserProfile
@@ -8,10 +10,6 @@ def index(request):
 	"""
 	View function for the home page of our site.
 	"""
-	# Put desired data fields here to allow for referencing in html for home page (index)
-	# Example: num_books=Book.objects.all().count()
-	# DONT FORGET TO ALSO POPULATE THE CONTEXT ARRAY IN THE THE RETURN STATEMENT BELOW
-
 
 	return render(
 		request,
@@ -19,18 +17,38 @@ def index(request):
 		context={},
 	)
 
+@login_required
 def closet(request):
-#items in closet
 	user_profile = UserProfile.objects.get(user=request.user)
+
+	#Stuff added by Tom -- if everything is broken look here
+	todays_date = datetime.date.today()
+	weather_today = Weather.objects.get(date__year=todays_date.year, date__month=todays_date.month, date__day=todays_date.day)
+
+	#Make outfit but don't save it to the database yet!
+	suggested_outfit = Outfit(user=request.user, outfit_name="Current Suggestion", date=todays_date)
+
+	for current_clothing_type in weather_today.weather_type.clothing_types.all():
+		available_clothing_of_current_type = user_profile.closet.filter(clothing_type=current_clothing_type)
+		if len(available_clothing_of_current_type) == 0:
+			clothing_choice = 'None'
+		elif len(available_clothing_of_current_type) == 1:
+			clothing_choice = available_clothing_of_current_type[0]
+			suggested_outfit.clothing.add(clothing_choice)
+		else:
+			clothing_choice = available_clothing_of_current_type[random.randint(0,len(available_clothing_of_current_type)-1)]
+			suggested_outfit.clothing.add(clothing_choice)
+	#End
+
 	closet_clothing = Outfit.objects.all()
-	types = ClothingType.objects.get(type_name = "Skirt")
+	types = ClothingType.objects.get(type_name = "Lower Body - Short")
 	specific_outfit = Outfit.objects.get(outfit_name = "Formal")
-	specific_weather = Weather.objects.get(weather_type = "Cloudy")
+	specific_weather = Weather.objects.filter(weather_type__type_name = "Cloudy")
 
 	return render(
 		request,
 		'closet.html',
-		context={'user_profile': user_profile, 'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
+		context={'user_profile': user_profile, 'weather_today': weather_today, 'suggested_outfit': suggested_outfit,'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
 )
 
 @login_required
@@ -64,7 +82,7 @@ def weather(request):
         date2 = Weather.objects.get(date='2017-11-03')
         date3 = Weather.objects.get(date='2017-11-04')
         date4 = Weather.objects.get(date='2017-11-05')
-        weather_type = Weather.objects.get(weather_type='Cloudy')
+        weather_type = Weather.objects.filter(weather_type__type_name='Cloudy')
 
         return render(
 		request,
@@ -154,3 +172,18 @@ def add_clothing(request, pk):
 		form = AddClothingForm()
 
 	return render(request, 'mycloset/add_clothing.html', {'form': form, 'user_profile': user_profile})
+
+
+def search_users(request):
+	"""
+	View function for searching for users using the search bar
+	"""
+	input_username = request.GET.get('input_text')
+	searched_user = UserProfile.objects.get(user__username=input_username)
+	print(searched_user.user.first_name)
+
+	return render(
+		request, 
+		'mycloset/searched_profile.html', 
+		context= {'searched_user':searched_user},
+		)
