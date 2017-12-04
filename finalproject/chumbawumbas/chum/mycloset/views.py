@@ -40,7 +40,9 @@ def closet(request):
 			suggested_outfit.clothing.add(clothing_choice)
 	#End
 
-	closet_clothing = Outfit.objects.all()
+	closet_outfits = Outfit.objects.filter(user=request.user)
+	closet_clothing = user_profile.closet
+
 	types = ClothingType.objects.get(type_name = "Lower Body - Short")
 	specific_outfit = Outfit.objects.get(outfit_name = "Formal")
 	specific_weather = Weather.objects.filter(weather_type__type_name = "Cloudy")
@@ -48,7 +50,7 @@ def closet(request):
 	return render(
 		request,
 		'closet.html',
-		context={'user_profile': user_profile, 'weather_today': weather_today, 'suggested_outfit': suggested_outfit,'closet_clothing':closet_clothing, 'types':types, 'specific_outfit':specific_outfit, 'specific_weather':specific_weather}
+		context={'user_profile': user_profile, 'weather_today': weather_today, 'suggested_outfit': suggested_outfit,'closet_outfits':closet_outfits, 'closet_clothing': closet_clothing,'types': types, 'specific_outfit': specific_outfit, 'specific_weather': specific_weather},
 )
 
 @login_required
@@ -109,6 +111,7 @@ import datetime
 
 from .forms import UpdateProfileForm
 from .forms import AddClothingForm
+from .forms import AddOutfitForm
 
 #@permission_required('catalog.can_mark_returned')
 def update_profile(request, pk):
@@ -174,16 +177,39 @@ def add_clothing(request, pk):
 	return render(request, 'mycloset/add_clothing.html', {'form': form, 'user_profile': user_profile})
 
 
+def add_outfit(request, pk):
+	"""
+	View function for adding clothing to your closet
+	"""
+	user_profile=get_object_or_404(UserProfile, pk = pk)
+
+	if request.method == 'POST':
+
+		form = AddOutfitForm(request.POST, user=request.user)
+
+		if form.is_valid():
+			outfit = Outfit.objects.create(user=request.user, outfit_name=form.cleaned_data['new_outfit_name'], clothing=form.cleaned_data['new_clothing'], date=datetime.date.today())
+
+			return HttpResponseRedirect(reverse('closet'))
+
+	else:
+		form = AddOutfitForm(user=request.user)
+
+	return render(request, 'mycloset/add_outfit.html', {'form': form, 'user_profile': user_profile})
+
+
 def search_users(request):
 	"""
 	View function for searching for users using the search bar
 	"""
 	input_username = request.GET.get('input_text')
 	searched_user = UserProfile.objects.get(user__username=input_username)
-	print(searched_user.user.first_name)
+	previous_outfits = Outfit.objects.filter(user__username=input_username)[:3]
+	favorite_outfits = Outfit.objects.filter(user__username=input_username).filter(favorite='Y')
+	#print(searched_user.user.first_name)
 
 	return render(
 		request, 
 		'mycloset/searched_profile.html', 
-		context= {'searched_user':searched_user},
+		context= {'searched_user':searched_user, 'previous_outfits': previous_outfits,'favorite_outfits': favorite_outfits},
 		)

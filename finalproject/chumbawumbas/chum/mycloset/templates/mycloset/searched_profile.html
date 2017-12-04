@@ -91,7 +91,7 @@
       <div class="previous display">
 
         <!-- Previous Outfits -->
-        {% for outfit in searched_user.previous_outfits %}
+        {% for outfit in previous_outfits %}
         <div class="row">
           <dl>
             <dt class="text-center">{{ outfit.outfit_name }}</dt>
@@ -121,7 +121,7 @@
       <div class="favorite display">
 
         <!-- First Favorite Outfit -->
-        {% for outfit in searched_user.favorite_outfits %}
+        {% for outfit in favorite_outfits %}
         <div class="row">
           <dl>
             <dt class="text-center">{{ outfit.outfit_name }}</dt>

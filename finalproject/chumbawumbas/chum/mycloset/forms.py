@@ -72,3 +72,24 @@ class AddClothingForm(forms.Form):
     def clean_clothing_weather(self):
         data = self.cleaned_data['new_weather']
         return data
+
+
+class AddOutfitForm(forms.Form):
+    new_outfit_name = forms.CharField(help_text="Enter the outfit name")
+    #Set dummy "none" query set until we can provide proper queryset (in __init__)
+    new_clothing = forms.ModelMultipleChoiceField(queryset=Clothing.objects.none(), help_text="Ctrl-Click to add multiple items")
+
+    #Required to get logged-in user to get their clothing
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(AddOutfitForm, self).__init__(*args, **kwargs)
+        qs = UserProfile.objects.get(user=user).closet
+        self.fields['new_clothing'].queryset = qs
+    
+    def clean_outfit_name(self):
+        data = self.cleaned_data['new_outfit_name']
+        return data
+
+    def clean_clothing(self):
+        data = self.cleaned_data['new_clothing']
+        return data
