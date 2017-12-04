@@ -80,13 +80,17 @@ def profile(request):
 
 
 def weather(request):
-        date = Weather.objects.get(date='2017-11-02')
-        date2 = Weather.objects.get(date='2017-11-03')
-        date3 = Weather.objects.get(date='2017-11-04')
-        date4 = Weather.objects.get(date='2017-11-05')
-        weather_type = Weather.objects.filter(weather_type__type_name='Cloudy')
+	todays_date = datetime.date.today()
+	date = Weather.objects.get(date__year=todays_date.year, date__month=todays_date.month, date__day=todays_date.day)
+	tomorrows_date = todays_date + datetime.timedelta(days=1)
+	date2 = Weather.objects.get(date__year=tomorrows_date.year, date__month=tomorrows_date.month, date__day=tomorrows_date.day)
+	two_days_from_now = tomorrows_date + datetime.timedelta(days=1)
+	date3 = Weather.objects.get(date__year=two_days_from_now.year, date__month=two_days_from_now.month, date__day=two_days_from_now.day)
+	three_days_from_now = two_days_from_now + datetime.timedelta(days=1)
+	date4 = Weather.objects.get(date__year=three_days_from_now.year, date__month=three_days_from_now.month, date__day=three_days_from_now.day)
+	weather_type = Weather.objects.filter(weather_type__type_name='Cloudy')
 
-        return render(
+	return render(
 		request,
 		'weather.html',
 		context = {'date':date,'date2':date2,'date3':date3,'date4':date4,'weather_type':weather_type},

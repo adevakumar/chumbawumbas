@@ -42,12 +42,12 @@
 		<div class="header-bottom">
 			<div class="header-bottom1">
 				<div class="header-head">
-				<h4>{{ weather_type }}</h4>
+				<h4>{{ date }}</h4>
 				<img src="images/cloudy.png" alt="" />
 				<h6>20°</h6>
 				<div class="bottom-head">
 					<p>{{ date.date }}</p>
-					<p>Wednesday</p>
+					<p>{{ date.date|date:"l" }}</p>
 				</div>
 			</div>
 			</div>
@@ -58,7 +58,7 @@
 			<h6>37°</h6>
 			<div class="bottom-head">
 					<p>{{ date2.date }}</p>
-					<p>Thursday</p>
+					<p>{{ date2.date|date:"l" }}</p>
 				</div>
 			</div>
 			</div>
@@ -69,7 +69,7 @@
 				<h6>7°</h6>
 				<div class="bottom-head">
 					<p>{{ date3.date }}</p>
-					<p>Friday</p>
+					<p>{{ date3.date|date:"l" }}</p>
 				</div>
 			</div>
 			</div>
@@ -80,7 +80,7 @@
 			<h6>-10°</h6>
 			<div class="bottom-head">
 					<p>{{ date4.date }}</p>
-					<p>Saturday</p>
+					<p>{{ date4.date|date:"l" }}</p>
 				</div>
 				</div>
 			</div>
