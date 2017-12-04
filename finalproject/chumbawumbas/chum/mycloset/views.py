@@ -112,6 +112,8 @@ import datetime
 from .forms import UpdateProfileForm
 from .forms import AddClothingForm
 from .forms import AddOutfitForm
+from .forms import DeleteClothingForm
+from .forms import DeleteOutfitForm
 
 #@permission_required('catalog.can_mark_returned')
 def update_profile(request, pk):
@@ -179,7 +181,7 @@ def add_clothing(request, pk):
 
 def add_outfit(request, pk):
 	"""
-	View function for adding clothing to your closet
+	View function for adding an outfit to your closet
 	"""
 	user_profile=get_object_or_404(UserProfile, pk = pk)
 
@@ -211,5 +213,47 @@ def search_users(request):
 	return render(
 		request, 
 		'mycloset/searched_profile.html', 
-		context= {'searched_user':searched_user, 'previous_outfits': previous_outfits,'favorite_outfits': favorite_outfits},
-		)
+		context= {'searched_user': searched_user, 'previous_outfits': previous_outfits,'favorite_outfits': favorite_outfits},
+	)
+
+
+def delete_clothing(request, pk):
+	"""
+	View function for adding an outfit to your closet
+	"""
+	clothing_to_delete=get_object_or_404(Clothing, pk = pk)
+
+	if request.method == 'POST':
+
+		form = DeleteClothingForm(request.POST)
+
+		if form.is_valid():
+			Clothing.delete(clothing_to_delete)
+
+			return HttpResponseRedirect(reverse('closet'))
+
+	else:
+		form = DeleteClothingForm()
+
+	return render(request, 'mycloset/delete_clothing.html', {'form': form, 'clothing_to_delete': clothing_to_delete})
+
+
+def delete_outfit(request, pk):
+	"""
+	View function for adding an outfit to your closet
+	"""
+	outfit_to_delete=get_object_or_404(Outfit, pk = pk)
+
+	if request.method == 'POST':
+
+		form = DeleteOutfitForm(request.POST)
+
+		if form.is_valid():
+			Outfit.delete(outfit_to_delete)
+
+			return HttpResponseRedirect(reverse('closet'))
+
+	else:
+		form = DeleteOutfitForm()
+
+	return render(request, 'mycloset/delete_outfit.html', {'form': form, 'outfit_to_delete': outfit_to_delete})

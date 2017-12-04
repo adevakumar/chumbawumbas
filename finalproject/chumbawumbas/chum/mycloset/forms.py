@@ -93,3 +93,12 @@ class AddOutfitForm(forms.Form):
     def clean_clothing(self):
         data = self.cleaned_data['new_clothing']
         return data
+
+
+class DeleteClothingForm(forms.Form):
+    class Meta:
+        fields = []
+
+class DeleteOutfitForm(forms.Form):
+    class Meta:
+        fields = []

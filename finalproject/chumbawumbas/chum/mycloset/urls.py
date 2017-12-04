@@ -17,4 +17,6 @@ urlpatterns += [
     url(r'^closet/(?P<pk>[-\w]+)/add-clothing/$', views.add_clothing, name='add-clothing'),
     url(r'^closet/(?P<pk>[-\w]+)/add-outfit/$', views.add_outfit, name='add-outfit'),
     url(r'^profile/search/$', views.search_users, name='search-users'),
+    url(r'^closet/(?P<pk>[-\w]+)/delete-clothing/$', views.delete_clothing, name='delete-clothing'),
+    url(r'^closet/(?P<pk>[-\w]+)/delete-outfit/$', views.delete_outfit, name='delete-outfit'),
 ]
