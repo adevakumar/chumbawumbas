@@ -171,7 +171,7 @@ def add_clothing(request, pk):
 		form = AddClothingForm(request.POST)
 
 		if form.is_valid():
-			clothing = Clothing.objects.create(clothing_name=form.cleaned_data['new_clothing_name'], clothing_type=form.cleaned_data['new_clothing_type'], clothing_picture=form.cleaned_data['new_clothing_picture'], weather=form.cleaned_data['new_weather_type'])
+			clothing = Clothing.objects.create(clothing_name=form.cleaned_data['new_clothing_name'], clothing_type=form.cleaned_data['new_clothing_type'], clothing_picture=form.cleaned_data['new_clothing_picture'])
 			user_profile.closet.add(clothing)
 			user_profile.save()
 

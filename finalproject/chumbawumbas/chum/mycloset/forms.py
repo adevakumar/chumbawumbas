@@ -55,7 +55,6 @@ class AddClothingForm(forms.Form):
     new_clothing_name = forms.CharField(help_text="Enter the clothing name")
     new_clothing_type = forms.ModelChoiceField(queryset=ClothingType.objects.all())
     new_clothing_picture = forms.CharField(help_text="Enter a valid image URL")
-    new_weather_type = forms.ModelChoiceField(queryset=Weather.objects.all())
     
     def clean_clothing_name(self):
         data = self.cleaned_data['new_clothing_name']
@@ -67,10 +66,6 @@ class AddClothingForm(forms.Form):
 
     def clean_clothing_picture(self):
         data = self.cleaned_data['new_clothing_picture']
-        return data
-
-    def clean_clothing_weather(self):
-        data = self.cleaned_data['new_weather']
         return data
 
 
