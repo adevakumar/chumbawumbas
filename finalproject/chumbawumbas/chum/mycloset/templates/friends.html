@@ -10,9 +10,14 @@
 <ul class="nav nav-tabs">
   <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
   <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
-  <li role="presentation"><a href="{% url 'profile' %}">My Profile</a></li>
+  <li role="presentation"><a href="{% url 'profile' %}">Profile</a></li>
   <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
   <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
+  <li role="presentation"><a href="{% url 'about' %}">About</a></li>
+  <form class="form-inline my-2 my-lg-0 pull-right" action="{% url 'search-users' %}" method="get">
+    <input class="form-control mr-sm-2" type="text" name="input_text" placeholder="Search Users">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
   {% if user.is_authenticated %}
     <li role="presentation" class="pull-right"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
     <li role="presentation" class="pull-right navbar-text"> {{ user.get_username }} </li>
