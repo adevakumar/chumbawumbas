@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  {% load static %}
+  
+  <link rel="stylesheet" type="text/css" href = "{% static  'css/style.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -45,6 +49,8 @@
     <link rel="stylesheet" href="{% static 'css/style-closet.css' %}">
   </head>
   <body>
+    <br>
+    <br>
 
     <!-- STUFF ADDED BY TOM -->
     <div class="row">
@@ -55,7 +61,7 @@
 
       <div class="col-xs-12 col-sm-12 col-md-9">
         <dl>
-          <dt class="text-center">{{ suggested_outfit.outfit_name }}</dt>
+          <dt>{{ suggested_outfit.outfit_name }}</dt>
           <dd>
             {% for clothing in suggested_outfit.clothing.all %}
             <div class="col-xs-2 col-sm-2 col-md-2">

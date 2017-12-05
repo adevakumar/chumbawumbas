@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/weather-style.css' %}">
+  <link rel="stylesheet" type="text/css" href = "{% static  'css/style.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
@@ -26,67 +26,45 @@
     <li role="presentation" class="pull-right"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
   {% endif %}
 </div>
-<div class="container">
-  <h1>What's the Weather Like?</h1>
-</div>
 
-	<div class="header">
-		<div class="header-top">
+  <h1>What's the Weather Like?</h1>
+
 			<h2><img class="whe" src="images/sun.png" alt="" />Today is {{ date.date }}</h2>
-			<ul>
-				<li><p>°F</p></li>
-				<li><p class="cen">°C</p></li>
-			</ul>
-			<div class="clear"> </div>
-		</div>
-		<div class="header-bottom">
-			<div class="header-bottom1">
-				<div class="header-head">
-				<h4>{{ date }}</h4>
+			
+		
+				<p>{{ date }}
 				<img src="images/cloudy.png" alt="" />
-				<h6>20°</h6>
-				<div class="bottom-head">
-					<p>{{ date.date }}</p>
-					<p>{{ date.date|date:"l" }}</p>
-				</div>
-			</div>
-			</div>
-			<div class="header-bottom1 header-bottom2">
-				<div class="header-head">
-			<h4>{{ date2 }}</h4>
+				20°</>
+			
+					<p>{{ date.date }}<br>
+					{{ date.date|date:"l" }}</p>
+			
+			
+			<h2>{{ date2 }}
 			<img src="images/sunn.png" alt="" />
-			<h6>37°</h6>
-			<div class="bottom-head">
-					<p>{{ date2.date }}</p>
-					<p>{{ date2.date|date:"l" }}</p>
-				</div>
-			</div>
-			</div>
-			<div class="header-bottom1">
-				<div class="header-head">
-				<h4>{{ date3 }}</h4>
+			37°</h2>
+			
+					<p>{{ date2.date }}
+						<br>
+					{{ date2.date|date:"l" }}</p>
+				
+			
+			
+				<h2>{{ date3 }}
 				<img src="images/rain.png" alt="" />
-				<h6>7°</h6>
-				<div class="bottom-head">
-					<p>{{ date3.date }}</p>
-					<p>{{ date3.date|date:"l" }}</p>
-				</div>
-			</div>
-			</div>
-			<div class="header-bottom1 header-bottom2">
-				<div class="header-head">
-			<h4>{{ date4 }}</h4>
+				7°</h2>
+				
+					<p>{{ date3.date }}<br>
+					{{ date3.date|date:"l" }}</p>
+				
+			
+			<h2>{{ date4 }}
 			<img src="images/rain.png" alt="" />
-			<h6>-10°</h6>
-			<div class="bottom-head">
-					<p>{{ date4.date }}</p>
-					<p>{{ date4.date|date:"l" }}</p>
-				</div>
-				</div>
-			</div>
-			<div class="clear"> </div>
-		</div>
-	</div>
+			-10°</h2>
+			
+					<p>{{ date4.date }}<br>
+					{{ date4.date|date:"l" }}</p>
+			
 
 </body>
 </html>

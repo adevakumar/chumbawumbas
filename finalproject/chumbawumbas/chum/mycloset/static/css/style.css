@@ -1,0 +1,118 @@
+h1 {
+	margin: auto;
+	position: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width: 50%;
+	font-size: 3em;
+	font-family: futura;
+	text-align: center;
+	background-color: #EDE2FF;	
+}
+
+h2 {
+	margin: auto;
+	position: center;
+	
+	width: 40%;
+	font-size: 2em;
+	font-family: futura;
+	font-style: bold;
+	text-align: center;
+	background-color: #EDE2FF;	
+}
+
+dt{
+	font-family: futura;
+	font-style: bold;
+	text-decoration: none;
+	text-align: center;
+}
+
+p {
+	margin: auto;
+	margin-top: 1em;
+	position: center;
+	padding: 5px;
+	width: 40%;
+    border-radius: 0 0 0 0;
+	font-size: 1.5em;
+	font-family: futura;
+	text-align: center;
+	background-color: #D6D3FF;
+	transition: .5s;
+
+}
+img {
+    max-width: 70%;
+
+    height: auto;
+}
+
+
+ul {
+	font-family: futura;
+	text-decoration: none;
+	position: center;
+
+}
+
+li {
+	position: center;
+	font-size: 1em;
+	font-family: futura;
+	text-decoration: none;
+}
+
+.centered, .clickable {
+	margin: auto;
+	margin-top: 1em;
+	position: relative;
+	padding: 20px;
+	width: 10em;
+	font-size: 1.5em;
+	font-family: futura;
+}
+
+.centeredHeader {
+	margin: auto;
+	margin-top: 1em;
+	position: relative;
+	padding: 20px;
+	width: 60%;
+	font-size: 1.5em;
+	font-family: futura;
+}
+
+.clickable:hover {
+	width: 12em;
+    transition: .5s;
+    background-color: #A9A5DC;
+    border-radius: 50px 50px 50px 50px;
+}
+
+
+a:hover{
+	text-decoration: none;
+	color: white;
+}
+
+
+#fixedbutton {
+    position: fixed;
+    text-align: center;
+    bottom: 20px;
+    left: 10px; 
+    padding: 14px 16px;
+    width: 3em;
+    margin: auto;
+   	background-color: black;
+   	border-color: #ac2c23;
+   	border-radius: 50px;
+   	border-width: 10px;	
+    font-family: Verdana;
+    font-size: 2em;
+    color: white;
+   
+}
+
