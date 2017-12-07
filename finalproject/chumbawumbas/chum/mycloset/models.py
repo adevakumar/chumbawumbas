@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Clothing(models.Model):
     """
-    Model representing clothing (but not a specific copy of a book).
+    Model representing clothing.
     """
     clothing_name = models.CharField(max_length=200, help_text="Enter clothing name (e.g. Dark Wash Jeans)", default="")
     clothing_type = models.ForeignKey('ClothingType', on_delete=models.SET_NULL, null=True)
@@ -24,20 +24,20 @@ class Clothing(models.Model):
 
 class ClothingType(models.Model):
     """
-    Model representing clothing classification (shirt, pants, etc)
+    Model representing clothing classification.
     """
     type_name = models.CharField(max_length=200, help_text="Enter a clothing classification")
 
     def __str__(self):
         """
-        String for representing the Clothing object.
+        String for representing the ClothingType object.
         """
         return self.type_name
 
 
 class Outfit(models.Model):
     """
-    Model representing clothing (but not a specific copy of a book).
+    Model representing an Outfit.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular clothing across whole closet")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -45,20 +45,20 @@ class Outfit(models.Model):
         ('Y', 'Yes'),
         ('N', 'No'),
     )
-    favorite = models.CharField(max_length=1, choices=IS_FAVORITE, default='No')
+    favorite = models.CharField(max_length=1, choices=IS_FAVORITE, default='N')
     outfit_name = models.CharField(max_length=200, help_text="Enter outfit name")
     clothing = models.ManyToManyField(Clothing, help_text="Select all clothing for your outfit")
     date = models.DateField('Date', null=True, blank=True)
 
     def __str__(self):
         """
-        String for representing the Clothing object.
+        String for representing the Outfit object.
         """
         return self.outfit_name
 
     def display_clothing(self):
         """
-        Creates a string for clothing. This is required to display genre in Admin.
+        Creates a string for outfit.
         """
         return ', '.join([ clothing.clothing_name for clothing in self.clothing.all()[:3] ])
     display_clothing.short_description = 'Clothing'
@@ -102,6 +102,17 @@ class Weather(models.Model):
         return '%s' % (self.weather_type)
 
 
+class WeatherSuggestion(models.Model):
+    suggestion_name = models.CharField(max_length=100, default="Not Used", help_text="Enter the name for this weather suggestion")
+    clothing_types = models.ManyToManyField(ClothingType, help_text="Select the clothing types to be worn for this type of weather")
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return '%s' % (self.suggestion_name)
+
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver    
 
@@ -117,6 +128,9 @@ class UserProfile(models.Model):
     residence = models.CharField('Residence', max_length=200, help_text="Enter your location of residence", default = '')
     closet = models.ManyToManyField('Clothing', help_text="Select clothing for closet")
     friends = models.ManyToManyField('UserProfile', help_text="Select friends for this user")
+    maximum_cold_temperature = models.IntegerField(default="5", help_text="Please enter the maximum temperature (Celsius) that you would consider cold. Temperatures above this are cool, then warm, then hot.")
+    maximum_cool_temperature = models.IntegerField(default="16", help_text="Please enter the maximum temperature (Celsius) that you would consider cool. Temperatures above this are warm, then hot.")
+    maximum_warm_temperature = models.IntegerField(default="27", help_text="Please enter the maximum temperature (Celsius) that you would consider warm. Temperatures above this are hot.")
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

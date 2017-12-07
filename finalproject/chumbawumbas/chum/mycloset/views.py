@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 import datetime
 import random
+import urllib.request
+import json
+import operator
 
 # Create your views here.
-from .models import Clothing, ClothingType, Outfit, Comment, Weather, UserProfile
+from .models import Clothing, ClothingType, Outfit, Comment, Weather, WeatherSuggestion, UserProfile
 
 def index(request):
 	"""
@@ -21,14 +25,36 @@ def index(request):
 def closet(request):
 	user_profile = UserProfile.objects.get(user=request.user)
 
-	#Stuff added by Tom -- if everything is broken look here
+	# API Weather Data retrieval
+	api_address = 'http://api.openweathermap.org/data/2.5/weather?appid=b4577d3c39fbd5525c092580382decc6&q='
+	city = user_profile.residence
+	api_url = (api_address + city)
+	with urllib.request.urlopen(api_url) as response:
+		json_weather_data = json.load(response)
+	weather_temperature = json_weather_data['main']['temp'] - 273.15
+
+	#Getting todays weather from our database
 	todays_date = datetime.date.today()
-	weather_today = Weather.objects.get(date__year=todays_date.year, date__month=todays_date.month, date__day=todays_date.day)
+	#weather_today = Weather.objects.get(date__year=todays_date.year, date__month=todays_date.month, date__day=todays_date.day)
+
+	if weather_temperature <= user_profile.maximum_cold_temperature:
+		suggestion_type = WeatherSuggestion.objects.get(suggestion_name="Cold Suggestion")
+	elif weather_temperature <= user_profile.maximum_cool_temperature:
+		suggestion_type = WeatherSuggestion.objects.get(suggestion_name="Cool Suggestion")
+	elif weather_temperature <= user_profile.maximum_warm_temperature:
+		suggestion_type = WeatherSuggestion.objects.get(suggestion_name="Warm Suggestion")
+	else:
+		suggestion_type = WeatherSuggestion.objects.get(suggestion_name="Hot Suggestion")
+
+
 
 	#Make outfit but don't save it to the database yet!
 	suggested_outfit = Outfit(user=request.user, outfit_name="Current Suggestion", date=todays_date)
+	if Outfit.objects.filter(outfit_name="Current Suggestion", user=request.user).exists():
+		# If there is already a suggestion, need to delete it first
+		Outfit.objects.get(outfit_name="Current Suggestion", user=request.user).delete()
 
-	for current_clothing_type in weather_today.weather_type.clothing_types.all():
+	for current_clothing_type in suggestion_type.clothing_types.all():
 		available_clothing_of_current_type = user_profile.closet.filter(clothing_type=current_clothing_type)
 		if len(available_clothing_of_current_type) == 0:
 			clothing_choice = 'None'
@@ -38,19 +64,19 @@ def closet(request):
 		else:
 			clothing_choice = available_clothing_of_current_type[random.randint(0,len(available_clothing_of_current_type)-1)]
 			suggested_outfit.clothing.add(clothing_choice)
+
+	# Save the suggestion to the database (until a new one is made)
+	suggested_outfit.save()
 	#End
 
+	#Get outfits and clothing for current logged-in user
 	closet_outfits = Outfit.objects.filter(user=request.user)
 	closet_clothing = user_profile.closet
-
-	types = ClothingType.objects.get(type_name = "Lower Body - Short")
-	specific_outfit = Outfit.objects.get(outfit_name = "Formal")
-	specific_weather = Weather.objects.filter(weather_type__type_name = "Cloudy")
 
 	return render(
 		request,
 		'closet.html',
-		context={'user_profile': user_profile, 'weather_today': weather_today, 'suggested_outfit': suggested_outfit,'closet_outfits':closet_outfits, 'closet_clothing': closet_clothing,'types': types, 'specific_outfit': specific_outfit, 'specific_weather': specific_weather},
+		context={'user_profile': user_profile, 'suggested_outfit': suggested_outfit,'closet_outfits':closet_outfits, 'closet_clothing': closet_clothing, 'json_weather_data': json_weather_data},
 )
 
 @login_required
@@ -68,7 +94,10 @@ def friends(request):
 @login_required
 def profile(request):
 	user_profile = UserProfile.objects.get(user=request.user)
-	previous_outfits = Outfit.objects.filter(user=request.user)[:3]
+
+
+
+	previous_outfits = Outfit.objects.filter(user=request.user).order_by('-date')[:5]
 	favorite_outfits = Outfit.objects.filter(user=request.user).filter(favorite='Y')
 
 
@@ -79,7 +108,23 @@ def profile(request):
         )
 
 
+@login_required
 def weather(request):
+	user_profile = UserProfile.objects.get(user=request.user)
+	city = user_profile.residence
+
+	# API Weather Data retrieval
+	api_weather_address = 'http://api.openweathermap.org/data/2.5/weather?appid=b4577d3c39fbd5525c092580382decc6&q='
+	api_weather_url = (api_weather_address + city)
+	with urllib.request.urlopen(api_weather_url) as response:
+		json_weather_data = json.load(response)
+
+	# API Forecast Data Retrieval
+	api_forecast_address = 'http://api.openweathermap.org/data/2.5/forecast?appid=b4577d3c39fbd5525c092580382decc6&q='
+	api_forecast_url = (api_forecast_address + city)
+	with urllib.request.urlopen(api_forecast_url) as response:
+		json_forecast_data = json.load(response)
+
 	todays_date = datetime.date.today()
 	date = Weather.objects.get(date__year=todays_date.year, date__month=todays_date.month, date__day=todays_date.day)
 	tomorrows_date = todays_date + datetime.timedelta(days=1)
@@ -93,7 +138,7 @@ def weather(request):
 	return render(
 		request,
 		'weather.html',
-		context = {'date':date,'date2':date2,'date3':date3,'date4':date4,'weather_type':weather_type},
+		context = {'user_profile':user_profile, 'date':date,'date2':date2,'date3':date3,'date4':date4,'weather_type':weather_type, 'json_weather_data': json_weather_data, 'json_forecast_data': json_forecast_data},
 	)
 
 
@@ -118,6 +163,7 @@ from .forms import AddClothingForm
 from .forms import AddOutfitForm
 from .forms import DeleteClothingForm
 from .forms import DeleteOutfitForm
+from .forms import SaveSuggestionForm
 
 #@permission_required('catalog.can_mark_returned')
 def update_profile(request, pk):
@@ -261,3 +307,49 @@ def delete_outfit(request, pk):
 		form = DeleteOutfitForm()
 
 	return render(request, 'mycloset/delete_outfit.html', {'form': form, 'outfit_to_delete': outfit_to_delete})
+
+
+def save_suggestion(request, pk):
+    """
+    View function for updating a user profile
+    """
+    suggestion=get_object_or_404(Outfit, pk = pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = SaveSuggestionForm(request.POST)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            suggestion.outfit_name = form.cleaned_data['new_outfit_name']
+            suggestion.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('closet') )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+      form = SaveSuggestionForm(initial={})
+
+    return render(request, 'mycloset/save_suggestion.html', {'form': form, 'suggestion':suggestion})
+
+def set_favorite(request):
+
+	if request.method == 'POST':
+		outfit_id = request.POST.get('outfit_id')
+
+		outfit = get_object_or_404(Outfit, pk = outfit_id)
+
+		if outfit.favorite == 'Y':
+			outfit.favorite = 'N'
+		else:
+			outfit.favorite = 'Y'
+		outfit.save()
+
+		return HttpResponseRedirect(reverse('closet'))
+	else:
+		# Do nothing then go back to closet
+		return render(request, 'closet.html', context={},)

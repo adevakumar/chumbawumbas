@@ -60,12 +60,18 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-3">
         <dt style="font-size: 300%" class="text-center">Today's weather is:</dt>
-        <dd style="font-size: 800%" class="text-center">{{ weather_today.weather_type }}</dd>
+        <dd style="font-size: 300%" class="text-center">
+          <ul style="list-style-type:none">
+            <li>Type: {{ json_weather_data.weather.0.main }}</li>
+            <li>Description: {{ json_weather_data.weather.0.description }}</li>
+            <li>Temp: {{ json_weather_data.main.temp|add:"-273" }} °C</li>
+          </ul>
+        </dd>
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-9">
         <dl>
-          <dt>{{ suggested_outfit.outfit_name }}</dt>
+          <dt>{{ suggested_outfit.outfit_name }}  <a class="btn btn-success btn-sm" href="{% url 'save-suggestion' suggested_outfit.id %}" role="button">Save!</a></dt>
           <dd>
             {% for clothing in suggested_outfit.clothing.all %}
             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -95,9 +101,18 @@
         </div>
 
         {% for outfit in closet_outfits %}
+        {% if outfit != suggested_outfit %}
         <div class="row">
           <dl>
-            <dt class="text-center">{{ outfit.outfit_name }}  <a class="btn btn-danger btn-sm" href="{% url 'delete-outfit' outfit.id %}" role="button">Delete</a></dt>
+            <dt class="text-center">
+              <form class="form-inline" action="{% url 'set-favorite' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" class="form-control mb-2 mr-sm-2 mb-sm-0" name="outfit_id" value="{{ outfit.id }}">
+                <button type="submit" class="btn btn-link">{% if outfit.favorite == 'Y' %}<span class="glyphicon glyphicon-star" aria-hidden="true"></span>{% else %}<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>{% endif %}</button>
+              </form>
+              {{ outfit.outfit_name }}
+              <a class="btn btn-danger btn-sm" href="{% url 'delete-outfit' outfit.id %}" role="button">Delete</a>
+            </dt>
             <dd>
               {% for clothing in outfit.clothing.all %}
               <div class="col-xs-2 col-sm-2 col-md-2">
@@ -110,6 +125,7 @@
             </dd>
           </dl>
         </div>
+        {% endif %}
         {% endfor %}
 
       </div>

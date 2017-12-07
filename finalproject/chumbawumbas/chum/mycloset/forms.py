@@ -97,3 +97,13 @@ class DeleteClothingForm(forms.Form):
 class DeleteOutfitForm(forms.Form):
     class Meta:
         fields = []
+
+
+class SaveSuggestionForm(forms.Form):
+    new_outfit_name = forms.CharField(help_text="Enter a name for this new outfit")
+
+    def clean_outfit_name(self):
+        data = self.cleaned_data['new_outfit_name']
+
+        # Remember to always return the cleaned data.
+        return data

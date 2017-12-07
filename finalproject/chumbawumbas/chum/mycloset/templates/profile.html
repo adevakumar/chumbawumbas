@@ -96,6 +96,7 @@
 
         <!-- Previous Outfits -->
         {% for outfit in previous_outfits %}
+        {% if outfit.outfit_name != "Current Suggestion" %}
         <div class="row">
           <dl>
             <dt class="text-center">{{ outfit.outfit_name }}</dt>
@@ -111,6 +112,7 @@
             </dd>
           </dl>
         </div>
+        {% endif %}
         {% endfor %}
 
       </div>
