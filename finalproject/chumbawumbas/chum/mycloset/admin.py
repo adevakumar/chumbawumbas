@@ -64,5 +64,5 @@ class OutfitAdmin(admin.ModelAdmin):
 # Register the Admin classes for Comment using the decorator
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'outfit', 'text', 'date')
-    list_filter = ('outfit', 'user', 'date')
+    list_display = ('user_profile', 'outfit', 'text', 'date')
+    list_filter = ('outfit', 'user_profile', 'date')

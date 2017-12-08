@@ -46,8 +46,6 @@ def closet(request):
 	else:
 		suggestion_type = WeatherSuggestion.objects.get(suggestion_name="Hot Suggestion")
 
-
-
 	#Make outfit but don't save it to the database yet!
 	suggested_outfit = Outfit(user=request.user, outfit_name="Current Suggestion", date=todays_date)
 	if Outfit.objects.filter(outfit_name="Current Suggestion", user=request.user).exists():
@@ -95,11 +93,8 @@ def friends(request):
 def profile(request):
 	user_profile = UserProfile.objects.get(user=request.user)
 
-
-
 	previous_outfits = Outfit.objects.filter(user=request.user).order_by('-date')[:5]
 	favorite_outfits = Outfit.objects.filter(user=request.user).filter(favorite='Y')
-
 
 	return render(
 		request,
@@ -336,6 +331,7 @@ def save_suggestion(request, pk):
 
     return render(request, 'mycloset/save_suggestion.html', {'form': form, 'suggestion':suggestion})
 
+
 def set_favorite(request):
 
 	if request.method == 'POST':
@@ -353,3 +349,27 @@ def set_favorite(request):
 	else:
 		# Do nothing then go back to closet
 		return render(request, 'closet.html', context={},)
+
+
+def view_outfit(request, pk):
+
+	current_outfit=get_object_or_404(Outfit, pk = pk)
+	comments=Comment.objects.filter(outfit__id=current_outfit.id).order_by('date')
+
+	return render(request, 'mycloset/view_outfit.html', context={'current_outfit':current_outfit, 'comments':comments})
+
+
+def submit_comment(request, user_id, outfit_id):
+
+	user_profile=UserProfile.objects.get(user__id=user_id)
+	current_outfit=get_object_or_404(Outfit, pk = outfit_id)
+
+	Comment.objects.create(user_profile=user_profile, outfit=current_outfit, text=request.POST.get('comment_text'), date=datetime.date.today())
+
+	comments=Comment.objects.filter(outfit__id=current_outfit.id).order_by('date')
+
+	return render(
+		request, 
+		'mycloset/view_outfit.html', 
+		context={'current_outfit':current_outfit, 'comments':comments},
+	)

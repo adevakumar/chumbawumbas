@@ -66,7 +66,7 @@ class Outfit(models.Model):
 
 class Comment(models.Model):
     text = models.TextField(max_length=2000)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.SET_NULL, null=True)
     outfit = models.ForeignKey('Outfit', on_delete=models.CASCADE, null=True)
     date = models.DateField('Date', null=True, blank=True)
 

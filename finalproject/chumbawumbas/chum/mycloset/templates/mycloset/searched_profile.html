@@ -94,7 +94,7 @@
         {% for outfit in previous_outfits %}
         <div class="row">
           <dl>
-            <dt class="text-center">{{ outfit.outfit_name }}</dt>
+            <dt class="text-center"><a href="{% url 'view-outfit' outfit.id %}">{{ outfit.outfit_name }}</a></dt>
             <dd>
               {% for clothing in outfit.clothing.all %}
               <div class="col-xs-2 col-sm-2 col-md-2">
@@ -124,7 +124,7 @@
         {% for outfit in favorite_outfits %}
         <div class="row">
           <dl>
-            <dt class="text-center">{{ outfit.outfit_name }}</dt>
+            <dt class="text-center"><a href="{% url 'view-outfit' outfit.id %}">{{ outfit.outfit_name }}</a></dt>
             <dd>
               {% for clothing in outfit.clothing.all %}
               <div class="col-xs-2 col-sm-2 col-md-2">
