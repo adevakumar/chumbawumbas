@@ -11,7 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
 </head>
-<body>
+<body id = "backgroundcolor">
 <ul class="nav nav-tabs">
   <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
   <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
@@ -32,36 +32,56 @@
 </ul>
 
 <h1>What's the Weather Like?</h1>
-<div class="row">
+<!-- <div class="row"> -->
 	<p>My Location: {{ user_profile.residence }}<p>
 
-</div>
+<!-- </div> -->
 
-<div class="row">
+<!-- <div class="row"> -->
 
 	<!-- Today's Weather Data (-273.15)-->
-	<div class="col-xs-12 col-sm-4 col-md-3">
-		<ul style="list-style-type:none">
-			<li><h2>NOW</h2></li>
-			<li>Weather: {{ json_weather_data.weather.0.main }}</li>
-			<li>Description: {{ json_weather_data.weather.0.description }}</li>
-			<li>Temp: {{ json_weather_data.main.temp|add:"-273" }} °C</li>
-		</ul>
+  
+	<!-- <div class="col-xs-12 col-sm-4 col-md-3"> -->
+
+		
+			<h2>NOW</h2>
+      
+			<p>Weather: {{ json_weather_data.weather.0.main }}
+        <br>
+			Description: {{ json_weather_data.weather.0.description }}
+      <br>
+			Temp: {{ json_weather_data.main.temp|add:"-273" }} °C
+    </p>
+    
+		<br>
 	</div>
 
-	<div class="col-xs-12 col-sm-8 col-md-9 row" style="white-space:nowrap">
+	 
 		<h2>Five-Day Weather Forecast</h2>
+    <p>Scroll To See The Week!<p>
+    <div class = "scroll">
+    <br>
+    <table>
 		{% for forecast_data in json_forecast_data.list %}
-		<div class="col-xs-2 col-sm-2 col-md-2">
-			<ul style="list-style-type:none">
-				<li>{{ forecast_data.dt_txt }}</li>
-				<li>Weather: {{ forecast_data.weather.0.main }}</li>
-				<li>Description: {{ forecast_data.weather.0.description }}</li>
-				<li>Temp: {{ forecast_data.main.temp|add:"-273" }} °C</li>
-			</ul>
-		</div>
+
+		<!-- <div class="col-xs-3 col-sm-2 col-md-2"> -->
+      <td>
+			<p class = "paragraph">
+				
+          {{ forecast_data.dt_txt }}
+          <br>
+				Weather: {{ forecast_data.weather.0.main }}
+        <br>
+				Description: {{ forecast_data.weather.0.description }}
+        <br>
+				Temp: {{ forecast_data.main.temp|add:"-273" }} °C
+      </p>
+      </td>
+		<!-- 	</ul> -->
+		<!-- </div> -->
 		{% endfor %}
-	</div>
+  </table>
+
 
 </div>
 
