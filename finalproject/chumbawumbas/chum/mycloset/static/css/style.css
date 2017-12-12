@@ -1,0 +1,313 @@
+h1 {
+	margin: auto;
+	position: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width: 50%;
+	padding: 1em;
+	font-size: 3em;
+	font-family: futura;
+	text-align: center;
+	background-color: #EDE2FF;	
+}
+
+#backgroundcolor {
+	background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/0kjHIH6/animated-cartoon-blue-sky-with-white-clouds_vj92cw5je__F0000.png");
+}
+
+
+
+h2 {
+	margin: auto;
+	position: center;
+	
+	width: 40%;
+	font-size: 2em;
+	font-family: futura;
+	font-style: bold;
+	text-align: center;
+	background-color: #EDE2FF;	
+}
+
+dt{
+	font-family: futura;
+	font-style: bold;
+	text-decoration: none;
+	text-align: center;
+}
+
+p {
+	margin: auto;
+	
+	position: center;
+	padding: 5px;
+	width: 40%;
+    border-radius: 0 0 0 0;
+	font-size: 1.5em;
+	font-family: futura;
+	text-align: center;
+	background-color: #D6D3FF;
+	transition: .5s;
+
+}
+
+div.scroll
+{
+position: center;
+height:200px;
+overflow:scroll;
+white-space: nowrap;
+}
+
+.paragraph {
+	
+	
+	position: center;
+	margin: 20px;
+	padding: 20px;
+	width: 250px;
+    
+	font-size: 20px;
+	font-family: futura;
+	text-align: center;
+
+	background-color: #D6D3FF;
+	transition: .5s;
+}
+
+.pImage {
+	
+	
+	position: center;
+	margin: 10px;
+	
+	width: 250px;
+    height: 350px;
+	font-size: 20px;
+	font-family: futura;
+	text-align: center;
+
+	background-color: #D6D3FF;
+	transition: .5s;
+}
+
+img {
+    max-width: 70%;
+    padding: 50px;
+    position: center;
+    max-height: 250px;
+}
+
+
+ul {
+	font-family: futura;
+	text-decoration: none;
+	position: center;
+
+}
+
+li {
+	position: center;
+	font-size: 1em;
+	font-family: futura;
+	text-decoration: none;
+}
+
+.centered, .clickable {
+	margin: auto;
+	margin-top: 1em;
+	position: relative;
+	padding: 20px;
+	width: 10em;
+	font-size: 1.5em;
+	font-family: futura;
+}
+
+.centeredHeader {
+	margin: auto;
+	margin-top: 1em;
+	position: relative;
+	padding: 20px;
+	width: 60%;
+	font-size: 1.5em;
+	font-family: futura;
+}
+
+.clickable:hover {
+	width: 12em;
+    transition: .5s;
+    background-color: #A9A5DC;
+    border-radius: 50px 50px 50px 50px;
+}
+
+
+a:hover{
+	text-decoration: none;
+	color: white;
+}
+
+
+#fixedbutton {
+    position: fixed;
+    text-align: center;
+    bottom: 20px;
+    left: 10px; 
+    padding: 14px 16px;
+    width: 3em;
+    margin: auto;
+   	background-color: black;
+   	border-color: #ac2c23;
+   	border-radius: 50px;
+   	border-width: 10px;	
+    font-family: Verdana;
+    font-size: 2em;
+    color: white;
+   
+}
+
+/*
+ * Calendar grid
+ */
+
+@calendar-columns:      7;
+@calendar-gutter-width: 0px;
+
+.make-calendar-columns() {
+  // Common styles for all sizes of calendar columns, widths 1-12
+  .cal(@index) when (@index = 1) { // initial
+    @item: ~".calendar-xs-@{index}, .calendar-sm-@{index}, .calendar-md-@{index}, .calendar-lg-@{index}";
+    .cal((@index + 1), @item);
+  }
+  .cal(@index, @list) when (@index =< @calendar-columns) { // general; "=<" isn't a typo
+    @item: ~".calendar-xs-@{index}, .calendar-sm-@{index}, .calendar-md-@{index}, .calendar-lg-@{index}";
+    .cal((@index + 1), ~"@{list}, @{item}");
+  }
+  .cal(@index, @list) when (@index > @calendar-columns) { // terminal
+    @{list} {
+      position: relative;
+      // Prevent columns from collapsing when empty
+      min-height: 1px;
+      // Inner gutter via padding
+      padding-left:  (@calendar-gutter-width / 2);
+      padding-right: (@calendar-gutter-width / 2);
+    }
+  }
+  .cal(1); // kickstart it
+}
+.float-calendar-columns(@class) {
+  .cal(@index) when (@index = 1) { // initial
+    @item: ~".calendar-@{class}-@{index}";
+    .cal((@index + 1), @item);
+  }
+  .cal(@index, @list) when (@index =< @calendar-columns) { // general
+    @item: ~".calendar-@{class}-@{index}";
+    .cal((@index + 1), ~"@{list}, @{item}");
+  }
+  .cal(@index, @list) when (@index > @calendar-columns) { // terminal
+    @{list} {
+      float: left;
+    }
+  }
+  .cal(1); // kickstart it
+}
+
+.calc-calendar-column(@index, @class, @type) when (@type = width) and (@index > 0) {
+  .calendar-@{class}-@{index} {
+    width: percentage((@index / @calendar-columns));
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = push) and (@index > 0) {
+  .calendar-@{class}-push-@{index} {
+    left: percentage((@index / @calendar-columns));
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = push) and (@index = 0) {
+  .calendar-@{class}-push-0 {
+    left: auto;
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = pull) and (@index > 0) {
+  .calendar-@{class}-pull-@{index} {
+    right: percentage((@index / @calendar-columns));
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = pull) and (@index = 0) {
+  .calendar-@{class}-pull-0 {
+    right: auto;
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = offset) {
+  .calendar-@{class}-offset-@{index} {
+    margin-left: percentage((@index / @calendar-columns));
+  }
+}
+
+// Basic looping in LESS
+.loop-calendar-columns(@index, @class, @type) when (@index >= 0) {
+  .calc-calendar-column(@index, @class, @type);
+  // next iteration
+  .loop-calendar-columns((@index - 1), @class, @type);
+}
+
+// Create grid for specific class
+.make-calendar(@class) {
+  .float-calendar-columns(@class);
+  .loop-calendar-columns(@grid-columns, @class, width);
+  .loop-calendar-columns(@grid-columns, @class, pull);
+  .loop-calendar-columns(@grid-columns, @class, push);
+  .loop-calendar-columns(@grid-columns, @class, offset);
+}
+
+
+// Row
+//
+// Rows contain and clear the floats of your columns.
+
+.calendar-row {
+    .make-row(@calendar-gutter-width);
+}
+
+
+// Columns
+//
+// Common styles for small and large grid columns
+
+.make-calendar-columns();
+
+
+// Extra small grid
+//
+// Columns, offsets, pushes, and pulls for extra small devices like
+// smartphones.
+
+.make-calendar(xs);
+
+
+// Small grid
+//
+// Columns, offsets, pushes, and pulls for the small device range, from phones
+// to tablets.
+
+@media (min-width: @screen-sm-min) {
+  .make-calendar(sm);
+}
+
+
+// Medium grid
+//
+// Columns, offsets, pushes, and pulls for the desktop device range.
+
+@media (min-width: @screen-md-min) {
+  .make-calendar(md);
+}
+
+
+// Large grid
+//
+// Columns, offsets, pushes, and pulls for the large desktop device range.
+
+@media (min-width: @screen-lg-min) {
+  .make-calendar(lg);
+}
+
+

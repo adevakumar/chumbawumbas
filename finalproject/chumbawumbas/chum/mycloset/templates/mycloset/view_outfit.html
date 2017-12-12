@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+</head>
+<body>
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
+  <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
+  <li role="presentation"><a href="{% url 'profile' %}">Profile</a></li>
+  <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
+  <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
+  <li role="presentation"><a href="{% url 'about' %}">About</a></li>
+  <form class="form-inline my-2 my-lg-0 pull-right" action="{% url 'search-users' %}" method="get">
+    <input class="form-control mr-sm-2" type="text" name="input_text" placeholder="Search Users">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+  {% if user.is_authenticated %}
+    <li role="presentation" class="pull-right"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    <li role="presentation" class="pull-right navbar-text"> {{ user.get_username }} </li>
+  {% else %}
+    <li role="presentation" class="pull-right"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+  {% endif %}
+</ul>
+
+<!-- Title -->
+<div class="container">
+  <h1>{{ current_outfit.user.username }}'s Outfit: {{ current_outfit.outfit_name }}</h1>
+</div>
+<!-- End Title -->
+
+<!-- Surrent Outfit -->
+<div class="col-xs-12 col-sm-12 col-md-12">
+  {% for clothing in current_outfit.clothing.all %}
+  <div class="col-xs-2 col-sm-2 col-md-2">
+    <dl>
+      <dt>{{ clothing.clothing_name }}</dt>
+      <dd><img src="{{ clothing.clothing_picture }}" class="img-responsive" alt="{{ clothing.clothing_type }}"></dd>
+    </dl>
+  </div>
+  {% endfor %}
+</div>
+<!-- End Current Outfit -->
+
+<!-- Comments Section -->
+{% for comment in comments %}
+<div class="row" id="comments">
+  <div class="col-sm-2 col-md-3">
+    <!-- Side Buffer for larger screens -->
+  </div>
+
+  <div class="col-xs-12 col-sm-8 col-md-6">
+    <div class="row">
+      <!-- Commenter Image Thumbnail -->
+      <div class="col-sm-2">
+        <div class="thumbnail">
+          <img class="img-responsive user-photo" src="{{ comment.user_profile.profile_picture }}">
+        </div>
+      </div>
+      <!-- End Commenter Image Thumbnail -->
+      <!-- Commenter Text Display -->
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong>{{ comment.user_profile.user.username }}</strong> <span class="text-muted">{{ comment.date }}</span>
+          </div>
+          <div class="panel-body">{{ comment.text }}</div>
+        </div>
+      </div>
+      <!-- End Commenter Text Display -->
+    </div>
+  </div>
+
+  <div class="col-sm-2 col-md-3">
+    <!-- Side Buffer for larger screens -->
+  </div>
+</div>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<div class="row" id="comment-box">
+  <div class="col-sm-2 col-md-3">
+    <!-- Side Buffer for larger screens -->
+  </div>
+
+  <div class="col-xs-12 col-sm-8 col-md-6">
+    <div class="row">
+      <!-- Commenter Image Thumbnail -->
+      <div class="col-xs-2 col-sm-2 col-md-2">
+        <!-- <div class="thumbnail">
+          <img class="img-responsive user-photo" src="{{ comment.user_profile.profile_picture }}">
+        </div> -->
+      </div>
+      <!-- End Commenter Image Thumbnail -->
+      <!-- Commenter Text Display -->
+      <div class="col-xs-10 col-sm-10 col-md-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <strong>{{ user.username }}</strong>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline" action="{% url 'submit-comment' user_id=user.id outfit_id=current_outfit.id %}" method="post">
+              {% csrf_token %}
+              <textarea class="form-control" rows="3" style="width:100%" name="comment_text"></textarea>
+              <button class="btn btn-outline-success my-2 my-sm-0 pull-right" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Commenter Text Display -->
+    </div>
+  </div>
+
+  <div class="col-sm-2 col-md-3">
+    <!-- Side Buffer for larger screens -->
+  </div>
+</div>
+{% else %}
+<div class="row">
+  <p class="text-center">Please login to leave a comment!</p>
+</div>
+{% endif %}
+<!-- End Comments Section -->
+
+</body>
+</html>

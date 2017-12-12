@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <ul class="nav nav-tabs">
+    <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
+    <li role="presentation"><a href="{% url 'closet' %}">My Closet</a></li>
+    <li role="presentation"><a href="{% url 'profile' %}">Profile</a></li>
+    <li role="presentation"><a href="{% url 'friends' %}">My Friends</a></li>
+    <li role="presentation"><a href="{% url 'weather' %}">Weather</a></li>
+    <li role="presentation"><a href="{% url 'about' %}">About</a></li>
+    {% if user.is_authenticated %}
+    <li role="presentation" class="pull-right"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+    <li role="presentation" class="pull-right navbar-text"> {{ user.get_username }} </li>
+  {% else %}
+    <li role="presentation" class="pull-right"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+  {% endif %}
+  </ul>
+<div class="container">
+  <h1>Closet Page</h1>
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Closet</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/style-closet.css' %}">
+  </head>
+  <body>
+
+    <!-- STUFF ADDED BY TOM -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3">
+        <dt style="font-size: 300%" class="text-center">Today's weather is:</dt>
+        <dd style="font-size: 800%" class="text-center">{{ weather_today.weather_type }}</dd>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-9">
+        <dl>
+          <dt class="text-center">{{ suggested_outfit.outfit_name }}</dt>
+          <dd>
+            {% for clothing in suggested_outfit.clothing.all %}
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <dl>
+                <dt>{{ clothing.clothing_name }}</dt>
+                <dd><img src="{{ clothing.clothing_picture }}" class="img-responsive" alt="{{ clothing.clothing_type }}"></dd>
+              </dl>
+            </div>
+            {% endfor %}
+          </dd>
+        </dl>
+      </div>
+
+    </div>
+    <!-- END -->
+
+
+    <!-- Page Content -->
+    {% block navbar %}
+    <ul class="nav navbar-nav inline-navbar">
+      <button class="btn btn-outline-info" type="button" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">My Closet</button>
+      <a class="btn btn-outline-info" href="{% url 'add-clothing' user_profile.id %}" role="button">Add Clothing</a>
+    </ul>
+    {% endblock %}
+    {% block content %}
+    <div style="width:800px; margin: auto;">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+    {% for outfit in closet_clothing %}
+        <div class="row">
+          <dl>
+            <dt class="text-center">{{ outfit.outfit_name }}</dt>
+            <dd>
+              {% for clothing in outfit.clothing.all %}
+              <div class="col-xs-3 col-sm-3 col-md-3">
+                <dl>
+                  <dt class="text-center">{{ clothing.clothing_name }}</dt>
+                  <dd><img src="{{ clothing.clothing_picture }}" class="center-block img-responsive" alt="{{ clothing.clothing_type }}"></dd>
+                </dl>
+              </div>
+              {% endfor %}
+            </dd>
+          </dl>
+        </div>
+        {% endfor %}
+      </div>
+      </div>
+            </div>
+      </div>
+      </div>
+    {% endblock %}
+
+      <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample2">
+
+      <div class="card">
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Clothing Name</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value= "ex: {{ specific_outfit.outfit_name }}, Blue Sweater" id="example-text-input">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Clothing Type</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value= "ex: {{ types }}" id="example-text-input">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Weather Attributes</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value= "ex: {{ specific_weather }}" id="example-text-input">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Other Attributes</label>
+            <div class="col-10">
+              <input class="form-control" type="text" value="ex: Colors, Size, etc." id="example-text-input">
+              <small id="emailHelp" class="form-text text-muted">Add whatever defining attributes you want!</small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-search-input" class="col-2 col-form-label">Upload</label>
+            <div class="col-10">
+              <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+            </div>
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+</body>
+</html>
