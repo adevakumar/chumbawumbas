@@ -8,7 +8,7 @@ import json
 import operator
 
 # Create your views here.
-from .models import Clothing, ClothingType, Outfit, Comment, Weather, WeatherSuggestion, UserProfile
+from .models import Clothing, ClothingType, Outfit, Comment, WeatherSuggestion, UserProfile
 
 def index(request):
 	"""
@@ -35,7 +35,6 @@ def closet(request):
 
 	#Getting todays weather from our database
 	todays_date = datetime.date.today()
-	#weather_today = Weather.objects.get(date__year=todays_date.year, date__month=todays_date.month, date__day=todays_date.day)
 
 	if weather_temperature <= user_profile.maximum_cold_temperature:
 		suggestion_type = WeatherSuggestion.objects.get(suggestion_name="Cold Suggestion")
@@ -121,14 +120,6 @@ def weather(request):
 		json_forecast_data = json.load(response)
 
 	todays_date = datetime.date.today()
-	# date = Weather.objects.get(date__year=todays_date.year, date__month=todays_date.month, date__day=todays_date.day)
-	# tomorrows_date = todays_date + datetime.timedelta(days=1)
-	# date2 = Weather.objects.get(date__year=tomorrows_date.year, date__month=tomorrows_date.month, date__day=tomorrows_date.day)
-	# two_days_from_now = tomorrows_date + datetime.timedelta(days=1)
-	# date3 = Weather.objects.get(date__year=two_days_from_now.year, date__month=two_days_from_now.month, date__day=two_days_from_now.day)
-	# three_days_from_now = two_days_from_now + datetime.timedelta(days=1)
-	# date4 = Weather.objects.get(date__year=three_days_from_now.year, date__month=three_days_from_now.month, date__day=three_days_from_now.day)
-	# weather_type = Weather.objects.filter(weather_type__type_name='Cloudy')
 
 	return render(
 		request,
@@ -146,7 +137,6 @@ def about(request):
 	)
 
 
-#from django.contrib.auth.decorators import permission_required
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -160,7 +150,6 @@ from .forms import DeleteClothingForm
 from .forms import DeleteOutfitForm
 from .forms import SaveSuggestionForm
 
-#@permission_required('catalog.can_mark_returned')
 def update_profile(request, pk):
     """
     View function for updating a user profile

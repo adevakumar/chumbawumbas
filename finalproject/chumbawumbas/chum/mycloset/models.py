@@ -70,37 +70,6 @@ class Comment(models.Model):
     outfit = models.ForeignKey('Outfit', on_delete=models.CASCADE, null=True)
     date = models.DateField('Date', null=True, blank=True)
 
-class WeatherType(models.Model):
-    """
-    Model representing weather classification (sunny, rainy, etc)
-    """
-    type_name = models.CharField(max_length=200, help_text="Enter a clothing type (Shirt, Pants, etc.)")
-    clothing_types = models.ManyToManyField('ClothingType', help_text="Select clothing types to be simultaneously worn in this weather")
-
-    def display_clothing_types(self):
-        """
-        Creates a string for user.username. This is required to display username in Admin.
-        """
-        return ', '.join([ clothing_types.type_name for clothing_types in self.clothing_types.all()[:3] ])
-    display_clothing_types.short_description = 'Clothing Types'
-
-    def __str__(self):
-        """
-        String for representing the Clothing object.
-        """
-        return self.type_name
-
-
-class Weather(models.Model):
-    weather_type = models.ForeignKey('WeatherType', on_delete=models.SET_NULL, null=True)
-    date = models.DateField('Date', null=True, blank=True)
-
-    def __str__(self):
-        """
-        String for representing the Model object.
-        """
-        return '%s' % (self.weather_type)
-
 
 class WeatherSuggestion(models.Model):
     suggestion_name = models.CharField(max_length=100, default="Not Used", help_text="Enter the name for this weather suggestion")

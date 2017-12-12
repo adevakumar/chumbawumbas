@@ -2,21 +2,12 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Weather, WeatherType, UserProfile, Clothing, ClothingType, WeatherSuggestion, Outfit, Comment
+from .models import UserProfile, Clothing, ClothingType, WeatherSuggestion, Outfit, Comment
 
 
 class CommentInline(admin.TabularInline):
     model = Comment
     extra = 0
-    
-# Register the Admin classes for Weather using the decorator
-@admin.register(Weather)
-class WeatherAdmin(admin.ModelAdmin):
-    list_display = ('weather_type', 'date')
-
-@admin.register(WeatherType)
-class WeatherTypeAdmin(admin.ModelAdmin):
-    pass
 
 # admin.site.register(UserProfile)
 # Register the Admin classes for UserProfile using the decorator
