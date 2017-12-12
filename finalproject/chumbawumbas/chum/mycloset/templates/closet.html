@@ -34,38 +34,46 @@
   <h1>Closet Page</h1>
 </div>
     <!-- STUFF ADDED BY TOM -->
-    <div class="row">
-      <div class="col-xs-12 col-sm-2 col-md-3">
-        <dt style="font-size: 300%" class="text-center">Today's weather is:</dt>
-        <dd style="font-size: 300%" class="text-center">
-          <ul style="list-style-type:none">
-            <li>Type: {{ json_weather_data.weather.0.main }}</li>
-            <li>Description: {{ json_weather_data.weather.0.description }}</li>
-            <li>Temp: {{ json_weather_data.main.temp|add:"-273" }} °C</li>
-          </ul>
-        </dd>
-      </div>
+        <p>
+        Today's weather is:
+      </p>
+      <p>
+        
+          
+            Type: {{ json_weather_data.weather.0.main }}<br>
+            Description: {{ json_weather_data.weather.0.description }}<br>
+            Temp: {{ json_weather_data.main.temp|add:"-273" }} °C
+          </p>
+          
+          <br>
+        
+      
 
-      <div class="col-xs-12 col-sm-10 col-md-9">
-        <dl>
-          <dt>{{ suggested_outfit.outfit_name }}  <a class="btn btn-success btn-sm" href="{% url 'save-suggestion' suggested_outfit.id %}" role="button">Save!</a></dt>
-          <dd>
+      
+        
+          <p>{{ suggested_outfit.outfit_name }}  <a class="btn btn-success btn-sm" href="{% url 'save-suggestion' suggested_outfit.id %}" role="button">Save!</a></p>
+          <br>
+          <div>
+            <table align = "center">
             {% for clothing in suggested_outfit.clothing.all %}
-            <div class="col-xs-2 col-sm-2 col-md-2">
-              <dl>
-                <dt>{{ clothing.clothing_name }}</dt>
-                <dd><img src="{{ clothing.clothing_picture }}" class="img-responsive" alt="{{ clothing.clothing_type }}"></dd>
-              </dl>
-            </div>
+            <td align = "center">
+              <p class = "pImage">
+                {{ clothing.clothing_name }}
+                <img src="{{ clothing.clothing_picture }}" class="img-responsive" alt="{{ clothing.clothing_type }}">
+              </p>
+             </td>
             {% endfor %}
-          </dd>
-        </dl>
-      </div>
+          </table>
+        </div>
+        
+      
 
-    </div>
+    
     <!-- END -->
 
     <!-- Page Content -->
+    <br>
+    
     <ul class="nav nav-tabs inline-navbar text-center" role="tablist">
       <a class="nav-item nav-link" id="nav-my-outfits-tab" data-toggle="tab" href="#nav-my-outfits" role="tab" aria-controls="nav-my-outfits" aria-selected="true">My Outfits</a>
       <a class="nav-item nav-link" id="nav-my-clothing-tab" data-toggle="tab" href="#nav-my-clothing" role="tab" aria-controls="nav-my-clothing" aria-selected="false">My Clothing</a>

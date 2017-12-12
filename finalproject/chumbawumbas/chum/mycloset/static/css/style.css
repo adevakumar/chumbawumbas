@@ -75,10 +75,27 @@ white-space: nowrap;
 	transition: .5s;
 }
 
+.pImage {
+	
+	
+	position: center;
+	margin: 10px;
+	
+	width: 250px;
+    height: 350px;
+	font-size: 20px;
+	font-family: futura;
+	text-align: center;
+
+	background-color: #D6D3FF;
+	transition: .5s;
+}
+
 img {
     max-width: 70%;
-
-    height: auto;
+    padding: 50px;
+    position: center;
+    max-height: 250px;
 }
 
 
